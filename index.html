@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>FritidsMatch</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <!-- FORSIDE -->
+    <main class="view landing-view active-view" id="landingView">
+        <section class="landing-card">
+            <div class="landing-left">
+
+                <div class="landing-header">
+                    <div class="brand">
+                        <img src="BLUE_VIFCirkelFlat.png" alt="Valby IF Gymnastik logo" class="brand-logo">
+
+                        <div class="brand-text">
+                            <span class="brand-top">Valby IF Gymnastik</span>
+                        </div>
+                    </div>
+
+                    <button class="language-toggle" type="button" data-lang-toggle aria-label="Skift sprog">
+                        <span class="lang-option" data-lang-label-da>DA</span>
+                        <span class="toggle-pill">
+                            <span class="toggle-dot"></span>
+                        </span>
+                        <span class="lang-option" data-lang-label-en>EN</span>
+                    </button>
+                </div>
+
+                <h1>Find den rigtige fritidsaktivitet til dit barn</h1>
+
+                <p class="intro-text">
+                    Udfyld et par oplysninger, så hjælper lokale foreninger med at finde
+                    et godt tilbud tæt på jer.
+                </p>
+
+                <div class="benefits">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">⌂</div>
+                        <span>Dine oplysninger deles kun med relevante foreninger</span>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✦</div>
+                        <span>I bliver kontaktet med et konkret tilbud</span>
+                    </div>
+                </div>
+
+                <button class="primary-btn landing-btn" id="startBtn" type="button">
+                    Kom i gang
+                    <span>→</span>
+                </button>
+
+                <a href="#" class="privacy-link">Sådan behandler vi dine oplysninger ↗</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- FORMULAR -->
+    <main class="view form-view" id="formView">
+        <section class="form-wrapper">
+            <form id="signupForm" class="form-card">
+                <div class="form-top">
+                    <div class="form-top-row">
+                        <button type="button" class="back-btn" id="backToLandingBtn">
+                            ← Tilbage
+                        </button>
+
+                        <button class="language-toggle small" type="button" data-lang-toggle aria-label="Skift sprog">
+                            <span class="lang-option" data-lang-label-da>DA</span>
+                            <span class="toggle-pill">
+                                <span class="toggle-dot"></span>
+                            </span>
+                            <span class="lang-option" data-lang-label-en>EN</span>
+                        </button>
+                    </div>
+
+                    <div class="progress-area">
+                        <div class="progress-label" id="stepText">Trin 1 af 6</div>
+
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 1 -->
+                <section class="form-step active-step">
+                    <div class="step-badge">1</div>
+
+                    <h2>Barnets oplysninger</h2>
+                    <p>Fortæl os lidt om barnet eller den unge.</p>
+
+                    <label>
+                        Navn
+                        <input type="text" name="childName" placeholder="Skriv barnets navn" required />
+                    </label>
+
+                    <label>
+                        Adresse
+                        <input type="text" name="childAddress" placeholder="Skriv barnets adresse" required />
+                    </label>
+
+                    <label>
+                        Skole
+                        <input type="text" name="childSchool" placeholder="Skriv skolens navn" required />
+                    </label>
+
+                    <label>
+                        Alder
+                        <select name="childAge" required>
+                            <option value="">Vælg alder</option>
+                            <option value="6-8 år">6-8 år</option>
+                            <option value="9-10 år">9-10 år</option>
+                            <option value="11-12 år">11-12 år</option>
+                            <option value="13-14 år">13-14 år</option>
+                            <option value="15-16 år">15-16 år</option>
+                            <option value="17+ år">17+ år</option>
+                        </select>
+                    </label>
+
+                    <div class="field-group">
+                        <div class="field-title">Køn</div>
+
+                        <div class="choice-grid">
+                            <label class="choice-card">
+                                <input type="radio" name="childGender" value="Pige" required />
+                                <span>Pige</span>
+                            </label>
+
+                            <label class="choice-card">
+                                <input type="radio" name="childGender" value="Dreng" />
+                                <span>Dreng</span>
+                            </label>
+
+                            <label class="choice-card">
+                                <input type="radio" name="childGender" value="Andet" />
+                                <span>Andet</span>
+                            </label>
+
+                            <label class="choice-card full-width">
+                                <input type="radio" name="childGender" value="Ønsker ikke at oplyse" />
+                                <span>Ønsker ikke at oplyse</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <div class="field-title">Sprog</div>
+
+                        <div class="choice-grid">
+                            <label class="choice-card">
+                                <input type="checkbox" name="childLanguages" value="Dansk" />
+                                <span>Dansk</span>
+                            </label>
+
+                            <label class="choice-card">
+                                <input type="checkbox" name="childLanguages" value="Engelsk" />
+                                <span>Engelsk</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <label>
+                        Andet sprog
+                        <input type="text" name="otherLanguage" placeholder="Skriv evt. andet sprog" />
+                    </label>
+                </section>
+
+                <!-- STEP 2 -->
+                <section class="form-step">
+                    <div class="step-badge">2</div>
+
+                    <h2>Forælderens info</h2>
+                    <p>Hvordan kan vi kontakte jer?</p>
+
+                    <label>
+                        Forælderens navn
+                        <input type="text" name="parentName" placeholder="Skriv forælderens navn" required />
+                    </label>
+
+                    <label>
+                        Telefonnummer
+                        <input type="tel" name="phone" placeholder="Skriv telefonnummer" />
+                    </label>
+
+                    <label>
+                        E-mail
+                        <input type="email" name="email" placeholder="Skriv e-mail" />
+                    </label>
+
+                    <div class="field-group">
+                        <div class="field-title">Har barnet brug for kontingentstøtte?</div>
+
+                        <div class="choice-grid">
+                            <label class="choice-card">
+                                <input type="radio" name="needsSupport" value="Ja" required />
+                                <span>Ja</span>
+                            </label>
+
+                            <label class="choice-card">
+                                <input type="radio" name="needsSupport" value="Nej" />
+                                <span>Nej</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <p class="helper-text">Skriv gerne enten telefonnummer eller e-mail.</p>
+                </section>
+
+                <!-- STEP 3 -->
+                <section class="form-step" data-step-type="interests">
+                    <div class="step-badge">3</div>
+
+                    <h2>Hvad interesserer barnet?</h2>
+                    <p>Vælg en eller flere aktiviteter.</p>
+
+                    <div class="interest-grid">
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Fodbold" />
+                            <span>⚽ Fodbold</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Gymnastik" />
+                            <span>🤸 Gymnastik</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Håndbold" />
+                            <span>🤾 Håndbold</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Basketball" />
+                            <span>🏀 Basketball</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Svømning" />
+                            <span>🏊 Svømning</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Tennis" />
+                            <span>🎾 Tennis</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Dans" />
+                            <span>🎵 Dans</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Kampsport" />
+                            <span>🥋 Kampsport</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Atletik" />
+                            <span>👟 Atletik</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Ridning" />
+                            <span>🐴 Ridning</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Badminton" />
+                            <span>🏸 Badminton</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Andet" />
+                            <span>✨ Andet</span>
+                        </label>
+                    </div>
+
+                    <p class="helper-text">Vælg mindst én interesse.</p>
+
+                    <label>
+                        Kender du nogen, der går til det?
+                        <textarea name="knownParticipant" rows="4"
+                            placeholder="Skriv fx barnets navn, holdnavn eller forening"></textarea>
+                    </label>
+                </section>
+
+                <!-- STEP 4 -->
+                <section class="form-step">
+                    <div class="step-badge">4</div>
+
+                    <h2>Niveau og erfaring</h2>
+                    <p>Hvor meget har barnet prøvet før?</p>
+
+                    <div class="choice-list">
+                        <label class="choice-row">
+                            <input type="radio" name="level" value="Nybegynder" required />
+                            <span>Nybegynder</span>
+                        </label>
+
+                        <label class="choice-row">
+                            <input type="radio" name="level" value="Har prøvet det før" />
+                            <span>Har prøvet det før</span>
+                        </label>
+
+                        <label class="choice-row">
+                            <input type="radio" name="level" value="Øvet" />
+                            <span>Øvet</span>
+                        </label>
+
+                        <label class="choice-row">
+                            <input type="radio" name="level" value="Ved ikke endnu" />
+                            <span>Ved ikke endnu</span>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- STEP 5 -->
+                <section class="form-step" data-step-type="times">
+                    <div class="step-badge">5</div>
+
+                    <h2>Hvornår passer det bedst?</h2>
+                    <p>Vælg gerne flere muligheder.</p>
+
+                    <div class="choice-list">
+                        <label class="choice-row">
+                            <input type="checkbox" name="preferredTimes" value="Hverdage efter skole" />
+                            <span>Hverdage efter skole</span>
+                        </label>
+
+                        <label class="choice-row">
+                            <input type="checkbox" name="preferredTimes" value="Hverdage om aftenen" />
+                            <span>Hverdage om aftenen</span>
+                        </label>
+
+                        <label class="choice-row">
+                            <input type="checkbox" name="preferredTimes" value="Weekend" />
+                            <span>Weekend</span>
+                        </label>
+
+                        <label class="choice-row">
+                            <input type="checkbox" name="preferredTimes" value="Fleksibelt" />
+                            <span>Vi er fleksible</span>
+                        </label>
+                    </div>
+
+                    <p class="helper-text">Vælg mindst én mulighed.</p>
+                </section>
+
+                <!-- STEP 6 -->
+                <section class="form-step">
+                    <div class="step-badge">6</div>
+
+                    <h2>Kommentar og samtykke</h2>
+                    <p>Sidste skridt.</p>
+
+                    <label>
+                        Kommentar
+                        <textarea name="comment" rows="5" placeholder="Skriv evt. noget vi bør vide"></textarea>
+                    </label>
+
+                    <div class="consent-box">
+                        Dine oplysninger deles kun med relevante lokale foreninger, som kan kontakte dig
+                        med et konkret tilbud om fritidsaktiviteter til dit barn.
+                    </div>
+
+                    <label class="consent-check">
+                        <input type="checkbox" name="consent" required />
+                        <span>
+                            Jeg accepterer, at mine oplysninger må deles med relevante foreninger
+                            med henblik på kontakt om fritidstilbud.
+                        </span>
+                    </label>
+                </section>
+
+                <!-- SUCCESS -->
+                <section class="success-step" id="successStep">
+                    <div class="success-content">
+                        <div class="success-icon">✓</div>
+
+                        <h2>Tak!</h2>
+
+                        <p>
+                            Vi har modtaget jeres oplysninger.
+                            En relevant forening kontakter jer, hvis der er et godt match.
+                        </p>
+
+                        <div class="success-tip">
+                            <span>💡</span>
+                            <p>
+                                Imens kan I snakke derhjemme om, hvad der kunne være sjovest
+                                at prøve først.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="form-actions">
+                    <button type="button" class="secondary-btn" id="prevStepBtn">Tilbage</button>
+                    <button type="button" class="primary-btn" id="nextStepBtn">Næste</button>
+                    <button type="submit" class="primary-btn hidden" id="submitBtn">Send oplysninger</button>
+                </div>
+
+                <div class="data-note">🔒 Vi passer godt på dine data</div>
+            </form>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
