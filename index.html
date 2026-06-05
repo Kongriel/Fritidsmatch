@@ -95,6 +95,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-error-box hidden" id="formErrorBox">
+                    <strong>Du mangler lige:</strong>
+                    <ul id="formErrorList"></ul>
+                </div>
 
                 <!-- STEP 1 -->
                 <section class="form-step active-step">
@@ -180,49 +184,10 @@
                 </section>
 
                 <!-- STEP 2 -->
-                <section class="form-step">
-                    <div class="step-badge">2</div>
 
-                    <h2>Forælderens info</h2>
-                    <p>Hvordan kan vi kontakte jer?</p>
 
-                    <label>
-                        Forælderens navn
-                        <input type="text" name="parentName" placeholder="Skriv forælderens navn" required />
-                    </label>
-
-                    <label>
-                        Telefonnummer
-                        <input type="tel" name="phone" placeholder="Skriv telefonnummer" />
-                    </label>
-
-                    <label>
-                        E-mail
-                        <input type="email" name="email" placeholder="Skriv e-mail" />
-                    </label>
-
-                    <div class="field-group">
-                        <div class="field-title">Har barnet brug for kontingentstøtte?</div>
-
-                        <div class="choice-grid">
-                            <label class="choice-card">
-                                <input type="radio" name="needsSupport" value="Ja" required />
-                                <span>Ja</span>
-                            </label>
-
-                            <label class="choice-card">
-                                <input type="radio" name="needsSupport" value="Nej" />
-                                <span>Nej</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <p class="helper-text">Skriv gerne enten telefonnummer eller e-mail.</p>
-                </section>
-
-                <!-- STEP 3 -->
                 <section class="form-step" data-step-type="interests">
-                    <div class="step-badge">3</div>
+                    <div class="step-badge">2</div>
 
                     <h2>Hvad interesserer barnet?</h2>
                     <p>Vælg en eller flere aktiviteter.</p>
@@ -300,7 +265,7 @@
 
                 <!-- STEP 4 -->
                 <section class="form-step">
-                    <div class="step-badge">4</div>
+                    <div class="step-badge">3</div>
 
                     <h2>Niveau og erfaring</h2>
                     <p>Hvor meget har barnet prøvet før?</p>
@@ -330,7 +295,7 @@
 
                 <!-- STEP 5 -->
                 <section class="form-step" data-step-type="times">
-                    <div class="step-badge">5</div>
+                    <div class="step-badge">4</div>
 
                     <h2>Hvornår passer det bedst?</h2>
                     <p>Vælg gerne flere muligheder.</p>
@@ -358,6 +323,46 @@
                     </div>
 
                     <p class="helper-text">Vælg mindst én mulighed.</p>
+                </section>
+
+                <section class="form-step">
+                    <div class="step-badge">5</div>
+
+                    <h2>Forælderens info</h2>
+                    <p>Hvordan kan vi kontakte jer?</p>
+
+                    <label>
+                        Forælderens navn
+                        <input type="text" name="parentName" placeholder="Skriv forælderens navn" required />
+                    </label>
+
+                    <label>
+                        Telefonnummer
+                        <input type="tel" name="phone" placeholder="Skriv telefonnummer" />
+                    </label>
+
+                    <label>
+                        E-mail
+                        <input type="email" name="email" placeholder="Skriv e-mail" />
+                    </label>
+
+                    <div class="field-group">
+                        <div class="field-title">Har barnet brug for kontingentstøtte?</div>
+
+                        <div class="choice-grid">
+                            <label class="choice-card">
+                                <input type="radio" name="needsSupport" value="Ja" required />
+                                <span>Ja</span>
+                            </label>
+
+                            <label class="choice-card">
+                                <input type="radio" name="needsSupport" value="Nej" />
+                                <span>Nej</span>
+                            </label>
+                        </div>
+                    </div>
+
+
                 </section>
 
                 <!-- STEP 6 -->
