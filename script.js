@@ -1,4 +1,5 @@
 let currentLanguage = "da";
+let currentErrors = [];
 
 const translations = {
   da: {
@@ -40,24 +41,11 @@ const translations = {
     other: "Andet",
     preferNot: "Ønsker ikke at oplyse",
 
-    childLanguage: "Barnets sprog",
+    childLanguage: "Sprog",
     danish: "Dansk",
     english: "Engelsk",
     otherLanguage: "Andet sprog",
     otherLanguagePlaceholder: "Skriv evt. andet sprog",
-
-    parentTitle: "Forælder info",
-    parentText: "Hvordan kan vi kontakte jer?",
-    parentName: "Forælderens navn",
-    parentNamePlaceholder: "Skriv forælderens navn",
-    phone: "Telefonnummer",
-    phonePlaceholder: "Skriv telefonnummer",
-    email: "E-mail",
-    emailPlaceholder: "Skriv e-mail",
-    support: "Har barnet brug for kontingentstøtte?",
-    yes: "Ja",
-    no: "Nej",
-    contactHelper: "Skriv gerne enten telefonnummer eller e-mail.",
 
     interestsTitle: "Hvad interesserer barnet?",
     interestsText: "Vælg en eller flere aktiviteter.",
@@ -80,6 +68,19 @@ const translations = {
     flexible: "Vi er fleksible",
     timeHelper: "Vælg mindst én mulighed.",
 
+    parentTitle: "Forælderens info",
+    parentText: "Hvordan kan vi kontakte jer?",
+    parentName: "Forælderens navn",
+    parentNamePlaceholder: "Skriv forælderens navn",
+    phone: "Telefonnummer",
+    phonePlaceholder: "Skriv telefonnummer",
+    email: "E-mail",
+    emailPlaceholder: "Skriv e-mail",
+    support: "Har barnet brug for kontingentstøtte?",
+    yes: "Ja",
+    no: "Nej",
+    contactHelper: "Skriv gerne enten telefonnummer eller e-mail.",
+
     consentTitle: "Kommentar og samtykke",
     consentText: "Sidste skridt.",
     comment: "Kommentar",
@@ -98,9 +99,19 @@ const translations = {
 
     done: "Færdig",
 
-    alertInterest: "Vælg mindst én interesse.",
-    alertTime: "Vælg mindst én mulighed for, hvornår det passer bedst.",
-    alertContact: "Skriv enten telefonnummer eller e-mail.",
+    errorTitle: "Du mangler lige:",
+    errorChildName: "Barnets navn mangler.",
+    errorChildAddress: "Barnets adresse mangler.",
+    errorChildSchool: "Barnets skole mangler.",
+    errorChildAge: "Barnets alder mangler.",
+    errorChildGender: "Barnets køn mangler.",
+    errorInterests: "Vælg mindst én aktivitet.",
+    errorLevel: "Vælg barnets niveau.",
+    errorTimes: "Vælg hvornår det passer bedst.",
+    errorParentName: "Forælderens navn mangler.",
+    errorContact: "Skriv enten telefonnummer eller e-mail.",
+    errorSupport: "Vælg om barnet har brug for kontingentstøtte.",
+    errorConsent: "Du skal acceptere samtykke før du kan sende.",
   },
 
   en: {
@@ -142,24 +153,11 @@ const translations = {
     other: "Other",
     preferNot: "Prefer not to say",
 
-    childLanguage: "Child’s language",
+    childLanguage: "Language",
     danish: "Danish",
     english: "English",
     otherLanguage: "Other language",
     otherLanguagePlaceholder: "Enter another language, if relevant",
-
-    parentTitle: "Parents informations",
-    parentText: "How can we contact you?",
-    parentName: "Parent’s name",
-    parentNamePlaceholder: "Enter the parent’s name",
-    phone: "Phone number",
-    phonePlaceholder: "Enter phone number",
-    email: "Email",
-    emailPlaceholder: "Enter email",
-    support: "Does the child need financial support for membership fees?",
-    yes: "Yes",
-    no: "No",
-    contactHelper: "Please enter either a phone number or an email.",
 
     interestsTitle: "What is the child interested in?",
     interestsText: "Choose one or more activities.",
@@ -182,6 +180,19 @@ const translations = {
     flexible: "We are flexible",
     timeHelper: "Choose at least one option.",
 
+    parentTitle: "Parent information",
+    parentText: "How can we contact you?",
+    parentName: "Parent’s name",
+    parentNamePlaceholder: "Enter the parent’s name",
+    phone: "Phone number",
+    phonePlaceholder: "Enter phone number",
+    email: "Email",
+    emailPlaceholder: "Enter email",
+    support: "Does the child need financial support for membership fees?",
+    yes: "Yes",
+    no: "No",
+    contactHelper: "Please enter either a phone number or an email.",
+
     consentTitle: "Comment and consent",
     consentText: "Final step.",
     comment: "Comment",
@@ -200,9 +211,19 @@ const translations = {
 
     done: "Done",
 
-    alertInterest: "Choose at least one interest.",
-    alertTime: "Choose at least one option for when it works best.",
-    alertContact: "Enter either a phone number or an email.",
+    errorTitle: "You still need to add:",
+    errorChildName: "The child’s name is missing.",
+    errorChildAddress: "The child’s address is missing.",
+    errorChildSchool: "The child’s school is missing.",
+    errorChildAge: "The child’s age is missing.",
+    errorChildGender: "The child’s gender is missing.",
+    errorInterests: "Choose at least one activity.",
+    errorLevel: "Choose the child’s level.",
+    errorTimes: "Choose when it works best.",
+    errorParentName: "The parent’s name is missing.",
+    errorContact: "Enter either a phone number or an email.",
+    errorSupport: "Choose whether the child needs financial support.",
+    errorConsent: "You need to accept the consent before submitting.",
   },
 };
 
@@ -223,8 +244,15 @@ const submitBtn = document.getElementById("submitBtn");
 const stepText = document.getElementById("stepText");
 const progressFill = document.getElementById("progressFill");
 
+const formErrorBox = document.getElementById("formErrorBox");
+const formErrorList = document.getElementById("formErrorList");
+
 let currentStep = 0;
 const totalSteps = formSteps.length;
+
+if (form) {
+  form.noValidate = true;
+}
 
 function t(key) {
   return translations[currentLanguage][key] || key;
@@ -251,6 +279,13 @@ function setLabelText(label, text) {
   }
 }
 
+function findLabelByField(selector) {
+  const field = document.querySelector(selector);
+  if (!field) return null;
+
+  return field.closest("label");
+}
+
 function updateAgeOptions() {
   const ageSelect = document.querySelector('select[name="childAge"]');
   if (!ageSelect) return;
@@ -267,13 +302,6 @@ function updateAgeOptions() {
       option.textContent = translatedAge;
     }
   });
-}
-
-function findLabelByField(selector) {
-  const field = document.querySelector(selector);
-  if (!field) return null;
-
-  return field.closest("label");
 }
 
 function showFormView() {
@@ -328,18 +356,27 @@ function updateLanguage() {
   if (benefits[0]) benefits[0].textContent = t("benefit1");
   if (benefits[1]) benefits[1].textContent = t("benefit2");
 
+  if (formErrorBox) {
+    const errorTitle = formErrorBox.querySelector("strong");
+    if (errorTitle) errorTitle.textContent = t("errorTitle");
+  }
+
+  if (currentErrors.length > 0 && formErrorBox && !formErrorBox.classList.contains("hidden")) {
+    showFormErrors(currentErrors);
+  }
+
   const steps = document.querySelectorAll(".form-step");
 
+  // STEP 1: Barnets oplysninger
   if (steps[0]) {
     steps[0].querySelector("h2").textContent = t("childInfoTitle");
     steps[0].querySelector("p").textContent = t("childInfoText");
 
-    const labels = steps[0].querySelectorAll("label");
-    setLabelText(labels[0], t("childName"));
-    setLabelText(labels[1], t("childAddress"));
-    setLabelText(labels[2], t("childSchool"));
-    setLabelText(labels[3], t("childAge"));
-    setLabelText(labels[4], t("otherLanguage"));
+    setLabelText(findLabelByField('input[name="childName"]'), t("childName"));
+    setLabelText(findLabelByField('input[name="childAddress"]'), t("childAddress"));
+    setLabelText(findLabelByField('input[name="childSchool"]'), t("childSchool"));
+    setLabelText(findLabelByField('select[name="childAge"]'), t("childAge"));
+    setLabelText(findLabelByField('input[name="otherLanguage"]'), t("otherLanguage"));
 
     setPlaceholder('input[name="childName"]', t("childNamePlaceholder"));
     setPlaceholder('input[name="childAddress"]', t("childAddressPlaceholder"));
@@ -369,75 +406,75 @@ function updateLanguage() {
     }
   }
 
+  // STEP 2: Interesser
   if (steps[1]) {
-    steps[1].querySelector("h2").textContent = t("parentTitle");
-    steps[1].querySelector("p").textContent = t("parentText");
-
-    const labels = steps[1].querySelectorAll("label");
-    setLabelText(labels[0], t("parentName"));
-    setLabelText(labels[1], t("phone"));
-    setLabelText(labels[2], t("email"));
-
-    setPlaceholder('input[name="parentName"]', t("parentNamePlaceholder"));
-    setPlaceholder('input[name="phone"]', t("phonePlaceholder"));
-    setPlaceholder('input[name="email"]', t("emailPlaceholder"));
-
-    const fieldTitle = steps[1].querySelector(".field-title");
-    if (fieldTitle) fieldTitle.textContent = t("support");
-
-    const supportChoices = steps[1].querySelectorAll(".choice-card span");
-    if (supportChoices[0]) supportChoices[0].textContent = t("yes");
-    if (supportChoices[1]) supportChoices[1].textContent = t("no");
+    steps[1].querySelector("h2").textContent = t("interestsTitle");
+    steps[1].querySelector("p").textContent = t("interestsText");
 
     const helper = steps[1].querySelector(".helper-text");
-    if (helper) helper.textContent = t("contactHelper");
-  }
-
-  if (steps[2]) {
-    steps[2].querySelector("h2").textContent = t("interestsTitle");
-    steps[2].querySelector("p").textContent = t("interestsText");
-
-    const helper = steps[2].querySelector(".helper-text");
     if (helper) helper.textContent = t("interestsHelper");
 
-    const knownLabel = findLabelByField('textarea[name="knownParticipant"]');
-    setLabelText(knownLabel, t("knowsSomeone"));
-
+    setLabelText(findLabelByField('textarea[name="knownParticipant"]'), t("knowsSomeone"));
     setPlaceholder('textarea[name="knownParticipant"]', t("knowsSomeonePlaceholder"));
   }
 
-  if (steps[3]) {
-    steps[3].querySelector("h2").textContent = t("levelTitle");
-    steps[3].querySelector("p").textContent = t("levelText");
+  // STEP 3: Niveau
+  if (steps[2]) {
+    steps[2].querySelector("h2").textContent = t("levelTitle");
+    steps[2].querySelector("p").textContent = t("levelText");
 
-    const levelChoices = steps[3].querySelectorAll(".choice-row span");
+    const levelChoices = steps[2].querySelectorAll(".choice-row span");
     if (levelChoices[0]) levelChoices[0].textContent = t("beginner");
     if (levelChoices[1]) levelChoices[1].textContent = t("triedBefore");
     if (levelChoices[2]) levelChoices[2].textContent = t("experienced");
     if (levelChoices[3]) levelChoices[3].textContent = t("dontKnow");
   }
 
-  if (steps[4]) {
-    steps[4].querySelector("h2").textContent = t("timeTitle");
-    steps[4].querySelector("p").textContent = t("timeText");
+  // STEP 4: Tidspunkt
+  if (steps[3]) {
+    steps[3].querySelector("h2").textContent = t("timeTitle");
+    steps[3].querySelector("p").textContent = t("timeText");
 
-    const timeChoices = steps[4].querySelectorAll(".choice-row span");
+    const timeChoices = steps[3].querySelectorAll(".choice-row span");
     if (timeChoices[0]) timeChoices[0].textContent = t("afterSchool");
     if (timeChoices[1]) timeChoices[1].textContent = t("evenings");
     if (timeChoices[2]) timeChoices[2].textContent = t("weekend");
     if (timeChoices[3]) timeChoices[3].textContent = t("flexible");
 
-    const helper = steps[4].querySelector(".helper-text");
+    const helper = steps[3].querySelector(".helper-text");
     if (helper) helper.textContent = t("timeHelper");
   }
 
+  // STEP 5: Forælder
+  if (steps[4]) {
+    steps[4].querySelector("h2").textContent = t("parentTitle");
+    steps[4].querySelector("p").textContent = t("parentText");
+
+    setLabelText(findLabelByField('input[name="parentName"]'), t("parentName"));
+    setLabelText(findLabelByField('input[name="phone"]'), t("phone"));
+    setLabelText(findLabelByField('input[name="email"]'), t("email"));
+
+    setPlaceholder('input[name="parentName"]', t("parentNamePlaceholder"));
+    setPlaceholder('input[name="phone"]', t("phonePlaceholder"));
+    setPlaceholder('input[name="email"]', t("emailPlaceholder"));
+
+    const fieldTitle = steps[4].querySelector(".field-title");
+    if (fieldTitle) fieldTitle.textContent = t("support");
+
+    const supportChoices = steps[4].querySelectorAll(".choice-card span");
+    if (supportChoices[0]) supportChoices[0].textContent = t("yes");
+    if (supportChoices[1]) supportChoices[1].textContent = t("no");
+
+    const helper = steps[4].querySelector(".helper-text");
+    if (helper) helper.textContent = t("contactHelper");
+  }
+
+  // STEP 6: Samtykke
   if (steps[5]) {
     steps[5].querySelector("h2").textContent = t("consentTitle");
     steps[5].querySelector("p").textContent = t("consentText");
 
-    const commentLabel = findLabelByField('textarea[name="comment"]');
-    setLabelText(commentLabel, t("comment"));
-
+    setLabelText(findLabelByField('textarea[name="comment"]'), t("comment"));
     setPlaceholder('textarea[name="comment"]', t("commentPlaceholder"));
 
     const consentBox = steps[5].querySelector(".consent-box");
@@ -466,96 +503,157 @@ function updateLanguage() {
   updateStepView();
 }
 
-function validateNormalFields(stepElement) {
-  const fields = stepElement.querySelectorAll("input, select, textarea");
-
-  for (const field of fields) {
-    if (field.type === "checkbox" || field.type === "radio") continue;
-
-    if (!field.checkValidity()) {
-      field.reportValidity();
-      return false;
-    }
-  }
-
-  const requiredRadioNames = [...new Set(Array.from(stepElement.querySelectorAll('input[type="radio"][required]')).map((input) => input.name))];
-
-  for (const radioName of requiredRadioNames) {
-    const checked = stepElement.querySelector(`input[name="${radioName}"]:checked`);
-
-    if (!checked) {
-      const firstRadio = stepElement.querySelector(`input[name="${radioName}"]`);
-      firstRadio.reportValidity();
-      return false;
-    }
-  }
-
-  const requiredCheckboxes = stepElement.querySelectorAll('input[type="checkbox"][required]');
-
-  for (const checkbox of requiredCheckboxes) {
-    if (!checkbox.checked) {
-      checkbox.reportValidity();
-      return false;
-    }
-  }
-
-  return true;
-}
-
-function validateCustomGroups(stepElement) {
-  const stepType = stepElement.dataset.stepType;
-
-  if (stepType === "interests") {
-    const checkedInterests = stepElement.querySelectorAll('input[name="interests"]:checked');
-
-    if (checkedInterests.length === 0) {
-      alert(t("alertInterest"));
-      return false;
-    }
-  }
-
-  if (stepType === "times") {
-    const checkedTimes = stepElement.querySelectorAll('input[name="preferredTimes"]:checked');
-
-    if (checkedTimes.length === 0) {
-      alert(t("alertTime"));
-      return false;
-    }
-  }
-
-  return true;
-}
-
-function validateContactInfo(stepElement) {
-  const phone = stepElement.querySelector('input[name="phone"]');
-  const email = stepElement.querySelector('input[name="email"]');
-
-  if (!phone || !email) return true;
-
-  const hasPhone = phone.value.trim().length > 0;
-  const hasEmail = email.value.trim().length > 0;
-
-  if (!hasPhone && !hasEmail) {
-    alert(t("alertContact"));
-    phone.focus();
-    return false;
-  }
-
-  return true;
-}
-
-function validateCurrentStep() {
-  const currentStepElement = formSteps[currentStep];
-
-  if (!validateNormalFields(currentStepElement)) return false;
-  if (!validateCustomGroups(currentStepElement)) return false;
-  if (!validateContactInfo(currentStepElement)) return false;
-
-  return true;
-}
-
 function getCheckedValues(name) {
   return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map((input) => input.value);
+}
+
+function hasValue(selector) {
+  const field = document.querySelector(selector);
+  return field && field.value.trim().length > 0;
+}
+
+function hasChecked(name) {
+  return document.querySelectorAll(`input[name="${name}"]:checked`).length > 0;
+}
+
+function hideFormErrors() {
+  currentErrors = [];
+
+  if (formErrorBox) formErrorBox.classList.add("hidden");
+  if (formErrorList) formErrorList.innerHTML = "";
+
+  document.querySelectorAll(".field-error").forEach((field) => {
+    field.classList.remove("field-error");
+  });
+
+  document.querySelectorAll(".choice-error").forEach((choice) => {
+    choice.classList.remove("choice-error");
+  });
+}
+
+function addError(errors, stepIndex, messageKey, fieldSelector = null) {
+  errors.push({
+    stepIndex,
+    messageKey,
+    fieldSelector,
+  });
+}
+
+function markFieldError(selector) {
+  if (!selector) return;
+
+  const fields = document.querySelectorAll(selector);
+  if (!fields.length) return;
+
+  fields.forEach((field) => {
+    if (field.type === "radio" || field.type === "checkbox") {
+      const group = document.querySelectorAll(`input[name="${field.name}"]`);
+
+      group.forEach((input) => {
+        const label = input.closest("label");
+        if (label) label.classList.add("choice-error");
+      });
+
+      return;
+    }
+
+    field.classList.add("field-error");
+  });
+}
+
+function showFormErrors(errors) {
+  if (!formErrorBox || !formErrorList) return;
+
+  formErrorList.innerHTML = "";
+
+  errors.forEach((error) => {
+    const li = document.createElement("li");
+    li.textContent = t(error.messageKey);
+    formErrorList.appendChild(li);
+
+    markFieldError(error.fieldSelector);
+  });
+
+  formErrorBox.classList.remove("hidden");
+}
+
+function goToFirstError(errors) {
+  if (!errors.length) return;
+
+  currentStep = errors[0].stepIndex;
+  updateStepView();
+
+  setTimeout(() => {
+    showFormErrors(errors);
+
+    formErrorBox?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, 50);
+}
+
+function validateFullForm() {
+  const errors = [];
+
+  // STEP 1: Barnets oplysninger
+  if (!hasValue('input[name="childName"]')) {
+    addError(errors, 0, "errorChildName", 'input[name="childName"]');
+  }
+
+  if (!hasValue('input[name="childAddress"]')) {
+    addError(errors, 0, "errorChildAddress", 'input[name="childAddress"]');
+  }
+
+  if (!hasValue('input[name="childSchool"]')) {
+    addError(errors, 0, "errorChildSchool", 'input[name="childSchool"]');
+  }
+
+  if (!hasValue('select[name="childAge"]')) {
+    addError(errors, 0, "errorChildAge", 'select[name="childAge"]');
+  }
+
+  if (!hasChecked("childGender")) {
+    addError(errors, 0, "errorChildGender", 'input[name="childGender"]');
+  }
+
+  // STEP 2: Interesser
+  if (!hasChecked("interests")) {
+    addError(errors, 1, "errorInterests", 'input[name="interests"]');
+  }
+
+  // STEP 3: Niveau
+  if (!hasChecked("level")) {
+    addError(errors, 2, "errorLevel", 'input[name="level"]');
+  }
+
+  // STEP 4: Tidspunkt
+  if (!hasChecked("preferredTimes")) {
+    addError(errors, 3, "errorTimes", 'input[name="preferredTimes"]');
+  }
+
+  // STEP 5: Forælder
+  if (!hasValue('input[name="parentName"]')) {
+    addError(errors, 4, "errorParentName", 'input[name="parentName"]');
+  }
+
+  const hasPhone = hasValue('input[name="phone"]');
+  const hasEmail = hasValue('input[name="email"]');
+
+  if (!hasPhone && !hasEmail) {
+    addError(errors, 4, "errorContact", 'input[name="phone"], input[name="email"]');
+  }
+
+  if (!hasChecked("needsSupport")) {
+    addError(errors, 4, "errorSupport", 'input[name="needsSupport"]');
+  }
+
+  // STEP 6: Samtykke
+  if (!hasChecked("consent")) {
+    addError(errors, 5, "errorConsent", 'input[name="consent"]');
+  }
+
+  return errors;
 }
 
 function collectFormData() {
@@ -570,16 +668,16 @@ function collectFormData() {
     child_languages: getCheckedValues("childLanguages"),
     other_language: formData.get("otherLanguage"),
 
-    parent_name: formData.get("parentName"),
-    phone: formData.get("phone"),
-    email: formData.get("email"),
-    needs_support: formData.get("needsSupport"),
-
     interests: getCheckedValues("interests"),
     known_participant: formData.get("knownParticipant"),
 
     level: formData.get("level"),
     preferred_times: getCheckedValues("preferredTimes"),
+
+    parent_name: formData.get("parentName"),
+    phone: formData.get("phone"),
+    email: formData.get("email"),
+    needs_support: formData.get("needsSupport"),
 
     comment: formData.get("comment"),
     consent: formData.get("consent") === "on",
@@ -596,7 +694,7 @@ document.querySelectorAll("[data-lang-toggle]").forEach((button) => {
 });
 
 nextStepBtn.addEventListener("click", () => {
-  if (!validateCurrentStep()) return;
+  hideFormErrors();
 
   if (currentStep < totalSteps - 1) {
     currentStep++;
@@ -606,6 +704,8 @@ nextStepBtn.addEventListener("click", () => {
 });
 
 prevStepBtn.addEventListener("click", () => {
+  hideFormErrors();
+
   if (currentStep > 0) {
     currentStep--;
     updateStepView();
@@ -616,7 +716,17 @@ prevStepBtn.addEventListener("click", () => {
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  if (!validateCurrentStep()) return;
+  hideFormErrors();
+
+  const errors = validateFullForm();
+  currentErrors = errors;
+
+  if (errors.length > 0) {
+    goToFirstError(errors);
+    return;
+  }
+
+  currentErrors = [];
 
   const data = collectFormData();
 
@@ -633,6 +743,26 @@ form.addEventListener("submit", (event) => {
   submitBtn.classList.add("hidden");
 
   window.scrollTo(0, 0);
+});
+
+document.querySelectorAll("input, select, textarea").forEach((field) => {
+  field.addEventListener("input", () => {
+    field.classList.remove("field-error");
+
+    const label = field.closest("label");
+    if (label) label.classList.remove("choice-error");
+  });
+
+  field.addEventListener("change", () => {
+    field.classList.remove("field-error");
+
+    if (field.type === "radio" || field.type === "checkbox") {
+      document.querySelectorAll(`input[name="${field.name}"]`).forEach((input) => {
+        const label = input.closest("label");
+        if (label) label.classList.remove("choice-error");
+      });
+    }
+  });
 });
 
 updateLanguage();
