@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Admin | FritidsMatch</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="admin.css" />
+</head>
+
+<body>
+    <main class="admin-shell">
+
+        <section class="login-card" id="loginView">
+            <div class="login-top">
+                <h1>Admin login</h1>
+                <p>Log ind for at se tilmeldinger.</p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <label>
+                    Email
+                    <input type="email" id="loginEmail" placeholder="Skriv email" required />
+                </label>
+
+                <label>
+                    Password
+                    <input type="password" id="loginPassword" placeholder="Skriv password" required />
+                </label>
+
+                <button type="submit" id="loginBtn">Log ind</button>
+
+                <p class="error-text hidden" id="loginError">
+                    Forkert login. Prøv igen.
+                </p>
+            </form>
+        </section>
+
+        <section class="dashboard hidden" id="dashboardView">
+            <header class="dashboard-header">
+                <div>
+                    <p class="eyebrow">FritidsMatch</p>
+                    <h1>Tilmeldinger</h1>
+                    <p id="countText">Henter data...</p>
+                </div>
+
+                <button class="logout-btn" id="logoutBtn" type="button">
+                    Log ud
+                </button>
+            </header>
+
+            <div class="toolbar">
+                <input type="search" id="searchInput" placeholder="Søg på navn, skole, aktivitet, telefon, email..." />
+
+                <button type="button" id="downloadCsvBtn">
+                    Download CSV
+                </button>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Barn</th>
+                            <th>Skole</th>
+                            <th>Alder</th>
+                            <th>Interesser</th>
+                            <th>Forælder</th>
+                            <th>Kontakt</th>
+                            <th>Støtte</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody id="submissionsTable">
+                        <tr>
+                            <td colspan="8">Henter tilmeldinger...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="admin.js"></script>
+</body>
+
+</html>
