@@ -1,6 +1,11 @@
 let currentLanguage = "da";
 let currentErrors = [];
 
+const SUPABASE_URL = "https://zsttfamkpvojriktqxxd.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_HA-5NsALtXQlCeYdvATkeg_cok3aZ3F";
+
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 const translations = {
   da: {
     step: "Trin",
@@ -91,13 +96,19 @@ const translations = {
     next: "Næste",
     previous: "Tilbage",
     submit: "Send oplysninger",
+    sending: "Sender...",
+    submitError: "Der skete en fejl. Prøv igen om lidt.",
     dataNote: "🔒 Vi passer godt på dine data",
 
-    successTitle: "Tak!",
-    successText: "Vi har modtaget jeres oplysninger. En relevant forening kontakter jer, hvis der er et godt match.",
-    successTip: "Imens kan I snakke derhjemme om, hvad der kunne være sjovest at prøve først.",
-
     done: "Færdig",
+
+    successTitleTop: "Tak for",
+    successTitleMiddle: "din",
+    successTitleBottom: "tilmelding!",
+    successSubtitle: "Vi har modtaget dine oplysninger",
+    successMatchTitle: "Vi finder det bedste match til jer",
+    successMatchText: "Vi kontakter jer, når vi har et godt match.",
+    successHomeBtn: "Til forsiden",
 
     errorTitle: "Du mangler lige:",
     errorChildName: "Barnets navn mangler.",
@@ -203,13 +214,19 @@ const translations = {
     next: "Next",
     previous: "Back",
     submit: "Submit information",
+    sending: "Sending...",
+    submitError: "Something went wrong. Please try again.",
     dataNote: "🔒 We take good care of your data",
 
-    successTitle: "Thank you!",
-    successText: "We have received your information. A relevant club will contact you if there is a good match.",
-    successTip: "In the meantime, you can talk at home about what might be the most fun to try first.",
-
     done: "Done",
+
+    successTitleTop: "Thanks for",
+    successTitleMiddle: "your",
+    successTitleBottom: "submission!",
+    successSubtitle: "We have received your information",
+    successMatchTitle: "We’ll find the best match for you",
+    successMatchText: "We’ll contact you when we have found a good match.",
+    successHomeBtn: "Back to front page",
 
     errorTitle: "You still need to add:",
     errorChildName: "The child’s name is missing.",
@@ -236,6 +253,7 @@ const backToLandingBtn = document.getElementById("backToLandingBtn");
 const form = document.getElementById("signupForm");
 const formSteps = document.querySelectorAll(".form-step");
 const successStep = document.getElementById("successStep");
+const successHomeBtn = document.getElementById("successHomeBtn");
 
 const prevStepBtn = document.getElementById("prevStepBtn");
 const nextStepBtn = document.getElementById("nextStepBtn");
@@ -367,7 +385,6 @@ function updateLanguage() {
 
   const steps = document.querySelectorAll(".form-step");
 
-  // STEP 1: Barnets oplysninger
   if (steps[0]) {
     steps[0].querySelector("h2").textContent = t("childInfoTitle");
     steps[0].querySelector("p").textContent = t("childInfoText");
@@ -406,7 +423,6 @@ function updateLanguage() {
     }
   }
 
-  // STEP 2: Interesser
   if (steps[1]) {
     steps[1].querySelector("h2").textContent = t("interestsTitle");
     steps[1].querySelector("p").textContent = t("interestsText");
@@ -418,7 +434,6 @@ function updateLanguage() {
     setPlaceholder('textarea[name="knownParticipant"]', t("knowsSomeonePlaceholder"));
   }
 
-  // STEP 3: Niveau
   if (steps[2]) {
     steps[2].querySelector("h2").textContent = t("levelTitle");
     steps[2].querySelector("p").textContent = t("levelText");
@@ -430,7 +445,6 @@ function updateLanguage() {
     if (levelChoices[3]) levelChoices[3].textContent = t("dontKnow");
   }
 
-  // STEP 4: Tidspunkt
   if (steps[3]) {
     steps[3].querySelector("h2").textContent = t("timeTitle");
     steps[3].querySelector("p").textContent = t("timeText");
@@ -445,7 +459,6 @@ function updateLanguage() {
     if (helper) helper.textContent = t("timeHelper");
   }
 
-  // STEP 5: Forælder
   if (steps[4]) {
     steps[4].querySelector("h2").textContent = t("parentTitle");
     steps[4].querySelector("p").textContent = t("parentText");
@@ -469,7 +482,6 @@ function updateLanguage() {
     if (helper) helper.textContent = t("contactHelper");
   }
 
-  // STEP 6: Samtykke
   if (steps[5]) {
     steps[5].querySelector("h2").textContent = t("consentTitle");
     steps[5].querySelector("p").textContent = t("consentText");
@@ -489,16 +501,13 @@ function updateLanguage() {
   setText("#submitBtn", t("submit"));
   setText(".data-note", t("dataNote"));
 
-  const success = document.querySelector("#successStep");
-  if (success) {
-    const successTitle = success.querySelector("h2");
-    const successText = success.querySelector(".success-content > p");
-    const successTip = success.querySelector(".success-tip p");
-
-    if (successTitle) successTitle.textContent = t("successTitle");
-    if (successText) successText.textContent = t("successText");
-    if (successTip) successTip.textContent = t("successTip");
-  }
+  setText("[data-success-title-top]", t("successTitleTop"));
+  setText("[data-success-title-middle]", t("successTitleMiddle"));
+  setText("[data-success-title-bottom]", t("successTitleBottom"));
+  setText("[data-success-subtitle]", t("successSubtitle"));
+  setText("[data-success-match-title]", t("successMatchTitle"));
+  setText("[data-success-match-text]", t("successMatchText"));
+  setText("[data-success-home-btn]", t("successHomeBtn"));
 
   updateStepView();
 }
@@ -596,7 +605,6 @@ function goToFirstError(errors) {
 function validateFullForm() {
   const errors = [];
 
-  // STEP 1: Barnets oplysninger
   if (!hasValue('input[name="childName"]')) {
     addError(errors, 0, "errorChildName", 'input[name="childName"]');
   }
@@ -617,22 +625,18 @@ function validateFullForm() {
     addError(errors, 0, "errorChildGender", 'input[name="childGender"]');
   }
 
-  // STEP 2: Interesser
   if (!hasChecked("interests")) {
     addError(errors, 1, "errorInterests", 'input[name="interests"]');
   }
 
-  // STEP 3: Niveau
   if (!hasChecked("level")) {
     addError(errors, 2, "errorLevel", 'input[name="level"]');
   }
 
-  // STEP 4: Tidspunkt
   if (!hasChecked("preferredTimes")) {
     addError(errors, 3, "errorTimes", 'input[name="preferredTimes"]');
   }
 
-  // STEP 5: Forælder
   if (!hasValue('input[name="parentName"]')) {
     addError(errors, 4, "errorParentName", 'input[name="parentName"]');
   }
@@ -648,7 +652,6 @@ function validateFullForm() {
     addError(errors, 4, "errorSupport", 'input[name="needsSupport"]');
   }
 
-  // STEP 6: Samtykke
   if (!hasChecked("consent")) {
     addError(errors, 5, "errorConsent", 'input[name="consent"]');
   }
@@ -682,8 +685,16 @@ function collectFormData() {
     comment: formData.get("comment"),
     consent: formData.get("consent") === "on",
     language: currentLanguage,
-    created_at: new Date().toISOString(),
   };
+}
+
+async function submitToSupabase(data) {
+  const { error } = await supabaseClient.from("fritidsmatch_submissions").insert([data]);
+
+  if (error) {
+    console.error("Supabase fejl:", error);
+    throw error;
+  }
 }
 
 document.querySelectorAll("[data-lang-toggle]").forEach((button) => {
@@ -713,7 +724,7 @@ prevStepBtn.addEventListener("click", () => {
   }
 });
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   hideFormErrors();
@@ -730,20 +741,57 @@ form.addEventListener("submit", (event) => {
 
   const data = collectFormData();
 
-  console.log("Klar til Supabase:", data);
+  try {
+    submitBtn.disabled = true;
+    submitBtn.textContent = t("sending");
 
-  formSteps.forEach((step) => step.classList.remove("active-step"));
-  successStep.classList.add("active-step");
+    await submitToSupabase(data);
 
-  stepText.textContent = t("done");
-  progressFill.style.width = "100%";
+    console.log("Gemt i Supabase:", data);
 
-  prevStepBtn.classList.add("hidden");
-  nextStepBtn.classList.add("hidden");
-  submitBtn.classList.add("hidden");
+    form.classList.add("success-mode");
+    formView.classList.add("success-view-mode");
 
-  window.scrollTo(0, 0);
+    formSteps.forEach((step) => step.classList.remove("active-step"));
+    successStep.classList.add("active-step");
+
+    stepText.textContent = t("done");
+    progressFill.style.width = "100%";
+
+    prevStepBtn.classList.add("hidden");
+    nextStepBtn.classList.add("hidden");
+    submitBtn.classList.add("hidden");
+
+    window.scrollTo(0, 0);
+  } catch (error) {
+    alert(t("submitError"));
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = t("submit");
+  }
 });
+
+if (successHomeBtn) {
+  successHomeBtn.addEventListener("click", () => {
+    form.reset();
+
+    currentStep = 0;
+    currentErrors = [];
+
+    hideFormErrors();
+
+    form.classList.remove("success-mode");
+    formView.classList.remove("success-view-mode");
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = t("submit");
+
+    successStep.classList.remove("active-step");
+
+    updateStepView();
+    showLandingView();
+  });
+}
 
 document.querySelectorAll("input, select, textarea").forEach((field) => {
   field.addEventListener("input", () => {
