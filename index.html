@@ -11,6 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css" />
 </head>
@@ -393,23 +396,44 @@
 
                 <!-- SUCCESS -->
                 <section class="success-step" id="successStep">
-                    <div class="success-content">
-                        <div class="success-icon">✓</div>
+                    <div class="success-content street-success">
 
-                        <h2>Tak!</h2>
+                        <div class="success-crown">♕</div>
 
-                        <p>
-                            Vi har modtaget jeres oplysninger.
-                            En relevant forening kontakter jer, hvis der er et godt match.
+                        <h2 class="street-success-title">
+                            <span data-success-title-top>Tak for</span>
+                            <strong data-success-title-middle>din</strong>
+                            <span data-success-title-bottom>tilmelding!</span>
+                        </h2>
+
+                        <p class="street-success-subtitle" data-success-subtitle>
+                            Vi har modtaget dine oplysninger
                         </p>
 
-                        <div class="success-tip">
-                            <span>💡</span>
-                            <p>
-                                Imens kan I snakke derhjemme om, hvad der kunne være sjovest
-                                at prøve først.
-                            </p>
+                        <div class="street-check">
+                            ✓
                         </div>
+
+                        <div class="street-match-card">
+                            <div class="street-match-icon">☆</div>
+
+                            <div>
+                                <h3 data-success-match-title>
+                                    Vi finder det bedste match til jer
+                                </h3>
+
+
+                            </div>
+                        </div>
+
+                        <button class="street-home-btn" id="successHomeBtn" type="button">
+                            <span data-success-home-btn>Til forsiden</span>
+                            <span>→</span>
+                        </button>
+
+                        <div class="street-doodle street-doodle-one">✦</div>
+
+
                     </div>
                 </section>
 
@@ -424,6 +448,7 @@
         </section>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
 </body>
 
