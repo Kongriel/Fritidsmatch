@@ -15,10 +15,13 @@ const translations = {
     start: "Kom i gang",
     privacy: "Sådan behandler vi dine oplysninger ↗",
 
-    landingTitle: "Find den rigtige fritidsaktivitet til dit barn",
-    landingIntro: "Udfyld et par oplysninger, så hjælper lokale foreninger med at finde et godt tilbud tæt på jer.",
-    benefit1: "Dine oplysninger deles kun med relevante foreninger",
-    benefit2: "I bliver kontaktet med et konkret tilbud",
+    landingTitle: "Find et fritidsmatch",
+    landingIntro: "Hjælp et barn eller en ung godt ind i en fritidsaktivitet",
+
+    landingMainText: "Hjælp et barn eller en ung godt videre til en lokal fritidsaktivitet",
+    landingSupportText: "Udfyld formularen på få minutter, så hjælper vi med at finde et godt match",
+    landingBadgeTime: "Tager 2-3 minutter",
+    landingBadgeContact: "Vi kontakter jer",
 
     childInfoTitle: "Barnets oplysninger",
     childInfoText: "Fortæl os lidt om barnet eller den unge.",
@@ -132,11 +135,13 @@ const translations = {
     back: "← Back",
     start: "Get started",
     privacy: "How we process your information ↗",
+    landingTitle: "Find a leisure activity",
+    landingIntro: "Help a child or young person get involved in a leisure activity",
 
-    landingTitle: "Find the right activity for your child",
-    landingIntro: "Fill in a few details, and local clubs will help find a suitable offer near you.",
-    benefit1: "Your information is only shared with relevant clubs",
-    benefit2: "You will be contacted with a specific offer",
+    landingMainText: "Help a child or young person get involved in a leisure activity",
+    landingSupportText: "Fill out the form, takes 2 minutes and we will help you find a good match.",
+    landingBadgeTime: "Takes 2-3 minutes",
+    landingBadgeContact: "We will contact you",
 
     childInfoTitle: "Child information",
     childInfoText: "Tell us a little about the child or young person.",
@@ -369,6 +374,9 @@ function updateLanguage() {
   setText(".privacy-link", t("privacy"));
   setText(".landing-left h1", t("landingTitle"));
   setText(".intro-text", t("landingIntro"));
+  setText("[data-landing-support-text]", t("landingSupportText"));
+  setText("[data-landing-badge-time]", t("landingBadgeTime"));
+  setText("[data-landing-badge-contact]", t("landingBadgeContact"));
 
   const benefits = document.querySelectorAll(".benefit-item span");
   if (benefits[0]) benefits[0].textContent = t("benefit1");
