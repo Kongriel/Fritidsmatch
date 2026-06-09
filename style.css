@@ -513,6 +513,60 @@ a {
 
 /* FORM VIEW - MOBILE ONLY */
 
+#nextStepBtn {
+  width: 100%;
+  min-height: 58px;
+  border-radius: 16px;
+  padding: 0 22px;
+  background: linear-gradient(135deg, #65c8ff, #3daeed);
+  color: #041c45;
+  font-size: 1rem;
+  font-weight: 950;
+  box-shadow:
+    0 14px 32px rgba(7, 43, 99, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  transition: 0.18s ease;
+}
+
+#nextStepBtn:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, #78d0ff, #4ab8f2);
+}
+
+#nextStepBtn:active {
+  transform: translateY(1px);
+}
+
+#prevStepBtn {
+  width: 100%;
+  min-height: 58px;
+  border-radius: 16px;
+  padding: 0 22px;
+  background: #eef5ff;
+  color: #072b63;
+  font-size: 1rem;
+  font-weight: 950;
+  border: 1px solid rgba(7, 43, 99, 0.12);
+  box-shadow: 0 10px 24px rgba(7, 43, 99, 0.08);
+  transition: 0.18s ease;
+}
+
+#prevStepBtn:hover {
+  transform: translateY(-1px);
+  background: #e3f1ff;
+}
+
+#prevStepBtn:active {
+  transform: translateY(1px);
+}
+
+#nextStepBtn:disabled,
+#prevStepBtn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .form-view {
   place-items: stretch;
   padding: 0;
