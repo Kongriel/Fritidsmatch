@@ -302,7 +302,7 @@ a {
   display: grid;
   gap: 0;
   color: white;
-  font-size: clamp(3.8rem, 16vw, 3.3rem);
+  font-size: 3.3rem;
   line-height: 0.86;
   letter-spacing: -0.08em;
   text-transform: uppercase;
