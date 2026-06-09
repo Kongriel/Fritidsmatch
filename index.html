@@ -21,7 +21,7 @@
 <body>
     <!-- FORSIDE -->
     <main class="view landing-view active-view" id="landingView">
-        <section class="landing-card">
+        <section class="landing-card street-landing">
             <div class="landing-left">
 
                 <div class="landing-header">
@@ -29,7 +29,7 @@
                         <img src="BLUE_VIFCirkelFlat.png" alt="Valby IF Gymnastik logo" class="brand-logo">
 
                         <div class="brand-text">
-                            <span class="brand-top">Valby IF Gymnastik</span>
+                            <span class="brand-top">FritidsMatch</span>
                         </div>
                     </div>
 
@@ -42,31 +42,48 @@
                     </button>
                 </div>
 
-                <h1>Find den rigtige fritidsaktivitet til dit barn</h1>
+                <div class="landing-content">
+                    <div class="landing-doodle landing-doodle-dot-one">•</div>
+                    <div class="landing-doodle landing-doodle-dot-two">•</div>
+                    <div class="landing-doodle landing-doodle-crown">♕</div>
+                    <div class="landing-doodle landing-doodle-star">☆</div>
 
-                <p class="intro-text">
-                    Udfyld et par oplysninger, så hjælper lokale foreninger med at finde
-                    et godt tilbud tæt på jer.
-                </p>
+                    <div class="landing-doodle landing-doodle-spark">✧</div>
 
-                <div class="benefits">
-                    <div class="benefit-item">
-                        <div class="benefit-icon">⌂</div>
-                        <span>Dine oplysninger deles kun med relevante foreninger</span>
-                    </div>
+                    <h1 class="street-landing-title">
+                        <span data-landing-title-top>Find et</span>
+                        <strong data-landing-title-bottom>fritidsmatch</strong>
+                    </h1>
 
-                    <div class="benefit-item">
-                        <div class="benefit-icon">✦</div>
-                        <span>I bliver kontaktet med et konkret tilbud</span>
+                    <p class="intro-text landing-main-text" data-landing-main-text>
+                        Hjælp et barn eller en ung godt videre til en lokal fritidsaktivitet.
+                    </p>
+
+                    <p class="landing-support-text" data-landing-support-text>
+                        Udfyld formularen på få minutter, så hjælper vi med at finde et godt match
+                    </p>
+
+                    <div class="landing-badges">
+                        <div class="landing-badge">
+                            <span class="landing-badge-icon">◷</span>
+                            <span data-landing-badge-time>Tager 2-3 minutter</span>
+                        </div>
+
+                        <div class="landing-badge">
+                            <span class="landing-badge-icon">♙</span>
+                            <span data-landing-badge-contact>Vi kontakter jer</span>
+                        </div>
                     </div>
                 </div>
 
                 <button class="primary-btn landing-btn" id="startBtn" type="button">
-                    Kom i gang
+                    <span data-landing-start>Start match</span>
                     <span>→</span>
                 </button>
 
-                <a href="#" class="privacy-link">Sådan behandler vi dine oplysninger ↗</a>
+                <a href="#" class="privacy-link" data-landing-privacy>
+                    Sådan behandler vi dine oplysninger ↗
+                </a>
             </div>
         </section>
     </main>
