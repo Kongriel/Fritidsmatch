@@ -44,6 +44,7 @@ input,
 select,
 textarea {
   font: inherit;
+  font-size: 16px;
 }
 
 button {
@@ -555,26 +556,28 @@ a {
 }
 
 .form-view {
-  place-items: stretch;
-  padding: 0;
+  place-items: start center;
+  padding: 20px 14px 32px;
   background: radial-gradient(circle at top left, rgba(223, 240, 221, 0.8), transparent 30%), radial-gradient(circle at bottom right, rgba(238, 245, 255, 0.85), transparent 34%), #f7fbf8;
+  overflow-y: auto;
 }
 
 .form-wrapper {
   width: 100%;
-  min-height: 100svh;
+  min-height: auto;
   display: grid;
-  place-items: stretch;
+  place-items: start center;
 }
 
 .form-card {
   width: 100%;
-  min-height: 100svh;
+  max-width: 430px;
+  min-height: auto;
   background: white;
-  border: none;
-  border-radius: 0;
-  padding: 30px 34px 34px;
-  box-shadow: none;
+  border: 1px solid rgba(217, 225, 234, 0.9);
+  border-radius: 26px;
+  padding: 22px 18px 24px;
+  box-shadow: 0 18px 50px rgba(7, 43, 99, 0.1);
   display: flex;
   flex-direction: column;
 }
@@ -1159,7 +1162,6 @@ textarea {
   background: #031123;
 }
 
-
 /* PRIVACY MODAL */
 
 .privacy-link {
@@ -1282,6 +1284,14 @@ textarea {
   color: #041c45;
   font-size: 1rem;
   font-weight: 950;
+}
+
+body.keyboard-open .form-view {
+  padding-bottom: 42vh;
+}
+
+body.keyboard-open .form-card {
+  margin-bottom: 24px;
 }
 
 
