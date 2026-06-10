@@ -23,6 +23,16 @@ const translations = {
     landingBadgeTime: "Tager 2-3 minutter",
     landingBadgeContact: "Vi kontakter jer",
 
+    privacyTitle: "Sådan behandler vi dine oplysninger",
+    privacyIntro: "Vi bruger kun oplysningerne til at hjælpe med at finde et relevant fritidstilbud.",
+    privacyPointOneTitle: "Hvad bruger vi oplysningerne til?",
+    privacyPointOneText: "Vi bruger dem til at kontakte jer og matche barnet eller den unge med en relevant lokal forening.",
+    privacyPointTwoTitle: "Hvem deles de med?",
+    privacyPointTwoText: "Oplysningerne deles kun med relevante personer eller foreninger, som kan hjælpe med fritidsmatch.",
+    privacyPointThreeTitle: "Hvor længe gemmes de?",
+    privacyPointThreeText: "Oplysningerne gemmes kun så længe, det er nødvendigt for at følge op på henvendelsen.",
+    privacyOk: "Det er forstået",
+
     childInfoTitle: "Personens oplysninger",
     childInfoText: "Fortæl os lidt om personen.",
     childName: "Navn",
@@ -143,6 +153,16 @@ const translations = {
     landingBadgeTime: "Takes 2-3 minutes",
     landingBadgeContact: "We will contact you",
 
+    privacyTitle: "How we process your information",
+    privacyIntro: "We only use the information to help find a relevant leisure activity.",
+    privacyPointOneTitle: "What do we use the information for?",
+    privacyPointOneText: "We use it to contact you and match the child or young person with a relevant local club.",
+    privacyPointTwoTitle: "Who is it shared with?",
+    privacyPointTwoText: "The information is only shared with relevant people or clubs who can help with the leisure match.",
+    privacyPointThreeTitle: "How long is it stored?",
+    privacyPointThreeText: "The information is only stored for as long as needed to follow up on the request.",
+    privacyOk: "Got it",
+
     childInfoTitle: "The persons information",
     childInfoText: "Tell us a little about the person.",
     childName: "Name",
@@ -251,6 +271,12 @@ const translations = {
 
 const landingView = document.getElementById("landingView");
 const formView = document.getElementById("formView");
+
+const privacyOpenBtn = document.getElementById("privacyOpenBtn");
+const privacyModal = document.getElementById("privacyModal");
+const privacyCloseBtn = document.getElementById("privacyCloseBtn");
+const privacyBackdrop = document.getElementById("privacyBackdrop");
+const privacyOkBtn = document.getElementById("privacyOkBtn");
 
 const startBtn = document.getElementById("startBtn");
 const backToLandingBtn = document.getElementById("backToLandingBtn");
@@ -377,6 +403,16 @@ function updateLanguage() {
   setText("[data-landing-support-text]", t("landingSupportText"));
   setText("[data-landing-badge-time]", t("landingBadgeTime"));
   setText("[data-landing-badge-contact]", t("landingBadgeContact"));
+
+  setText("[data-privacy-title]", t("privacyTitle"));
+  setText("[data-privacy-intro]", t("privacyIntro"));
+  setText("[data-privacy-point-one-title]", t("privacyPointOneTitle"));
+  setText("[data-privacy-point-one-text]", t("privacyPointOneText"));
+  setText("[data-privacy-point-two-title]", t("privacyPointTwoTitle"));
+  setText("[data-privacy-point-two-text]", t("privacyPointTwoText"));
+  setText("[data-privacy-point-three-title]", t("privacyPointThreeTitle"));
+  setText("[data-privacy-point-three-text]", t("privacyPointThreeText"));
+  setText("[data-privacy-ok]", t("privacyOk"));
 
   const benefits = document.querySelectorAll(".benefit-item span");
   if (benefits[0]) benefits[0].textContent = t("benefit1");
@@ -819,6 +855,27 @@ document.querySelectorAll("input, select, textarea").forEach((field) => {
       });
     }
   });
+});
+
+function openPrivacyModal() {
+  privacyModal?.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+
+function closePrivacyModal() {
+  privacyModal?.classList.add("hidden");
+  document.body.style.overflow = "";
+}
+
+privacyOpenBtn?.addEventListener("click", openPrivacyModal);
+privacyCloseBtn?.addEventListener("click", closePrivacyModal);
+privacyBackdrop?.addEventListener("click", closePrivacyModal);
+privacyOkBtn?.addEventListener("click", closePrivacyModal);
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closePrivacyModal();
+  }
 });
 
 updateLanguage();
