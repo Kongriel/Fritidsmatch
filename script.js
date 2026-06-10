@@ -878,4 +878,38 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+const initialViewportHeight = window.innerHeight;
+
+function updateKeyboardState() {
+  const currentHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+
+  const keyboardIsProbablyOpen = currentHeight < initialViewportHeight * 0.75;
+
+  document.body.classList.toggle("keyboard-open", keyboardIsProbablyOpen);
+}
+
+if (window.visualViewport) {
+  window.visualViewport.addEventListener("resize", updateKeyboardState);
+  window.visualViewport.addEventListener("scroll", updateKeyboardState);
+} else {
+  window.addEventListener("resize", updateKeyboardState);
+}
+
+document.querySelectorAll("input, textarea, select").forEach((field) => {
+  field.addEventListener("focus", () => {
+    document.body.classList.add("keyboard-open");
+
+    setTimeout(() => {
+      field.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }, 300);
+  });
+
+  field.addEventListener("blur", () => {
+    setTimeout(updateKeyboardState, 250);
+  });
+});
+
 updateLanguage();
