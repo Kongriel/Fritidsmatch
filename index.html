@@ -80,9 +80,9 @@
                     <span>→</span>
                 </button>
 
-                <a href="#" class="privacy-link" data-landing-privacy>
+                <button class="privacy-link" id="privacyOpenBtn" type="button" data-landing-privacy>
                     Sådan behandler vi dine oplysninger ↗
-                </a>
+                </button>
             </div>
         </section>
     </main>
@@ -463,6 +463,54 @@
             </form>
         </section>
     </main>
+    <div class="privacy-modal hidden" id="privacyModal">
+        <div class="privacy-backdrop" id="privacyBackdrop"></div>
+
+        <section class="privacy-panel">
+            <button class="privacy-close" id="privacyCloseBtn" type="button" aria-label="Luk">
+                ×
+            </button>
+
+            <div class="privacy-icon">🔒</div>
+
+            <h2 data-privacy-title>
+                Sådan behandler vi dine oplysninger
+            </h2>
+
+            <p data-privacy-intro>
+                Vi bruger kun oplysningerne til at hjælpe med at finde et relevant fritidstilbud.
+            </p>
+
+            <div class="privacy-list">
+                <div>
+                    <strong data-privacy-point-one-title>Hvad bruger vi oplysningerne til?</strong>
+                    <span data-privacy-point-one-text>
+                        Vi bruger dem til at kontakte jer og matche barnet eller den unge med en relevant lokal
+                        forening.
+                    </span>
+                </div>
+
+                <div>
+                    <strong data-privacy-point-two-title>Hvem deles de med?</strong>
+                    <span data-privacy-point-two-text>
+                        Oplysningerne deles kun med relevante personer eller foreninger, som kan hjælpe med
+                        fritidsmatch.
+                    </span>
+                </div>
+
+                <div>
+                    <strong data-privacy-point-three-title>Hvor længe gemmes de?</strong>
+                    <span data-privacy-point-three-text>
+                        Oplysningerne gemmes kun så længe, det er nødvendigt for at følge op på henvendelsen.
+                    </span>
+                </div>
+            </div>
+
+            <button class="privacy-ok-btn" id="privacyOkBtn" type="button" data-privacy-ok>
+                Det er forstået
+            </button>
+        </section>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
