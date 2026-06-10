@@ -857,6 +857,21 @@ textarea {
   font-size: 0.88rem;
 }
 
+#submitBtn {
+  width: 100%;
+  min-height: 58px;
+  border-radius: 16px;
+  padding: 0 22px;
+  background: linear-gradient(135deg, #65c8ff, #3daeed);
+  color: #041c45;
+  font-size: 1rem;
+  font-weight: 950;
+  box-shadow:
+    0 14px 32px rgba(7, 43, 99, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  transition: 0.18s ease;
+}
+
 /* SUCCESS */
 
 /* SUCCESS - STREET STYLE */
