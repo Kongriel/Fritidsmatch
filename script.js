@@ -16,9 +16,9 @@ const translations = {
     privacy: "Sådan behandler vi dine oplysninger ↗",
 
     landingTitle: "Find et fritidsmatch",
-    landingIntro: "Hjælp et barn eller en ung godt ind i en fritidsaktivitet",
+    landingIntro: "Hjælp en person godt ind i en fritidsaktivitet",
 
-    landingMainText: "Hjælp et barn eller en ung godt videre til en lokal fritidsaktivitet",
+    landingMainText: "Hjælp en person godt videre til en lokal fritidsaktivitet",
     landingSupportText: "Udfyld formularen på få minutter, så hjælper vi med at finde et godt match",
     landingBadgeTime: "Tager 2-3 minutter",
     landingBadgeContact: "Vi kontakter jer",
@@ -136,9 +136,9 @@ const translations = {
     start: "Get started",
     privacy: "How we process your information ↗",
     landingTitle: "Find a leisure activity",
-    landingIntro: "Help a child or young person get involved in a leisure activity",
+    landingIntro: "Help a person get involved in a leisure activity",
 
-    landingMainText: "Help a child or young person get involved in a leisure activity",
+    landingMainText: "Help a person get involved in a leisure activity",
     landingSupportText: "Fill out the form, takes 2 minutes and we will help you find a good match.",
     landingBadgeTime: "Takes 2-3 minutes",
     landingBadgeContact: "We will contact you",
