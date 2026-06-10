@@ -1159,3 +1159,129 @@ textarea {
   background: #031123;
 }
 
+
+/* PRIVACY MODAL */
+
+.privacy-link {
+  width: fit-content;
+  display: inline-block;
+  align-self: center;
+  margin-top: 18px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.85rem;
+  font-weight: 750;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.privacy-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.privacy-modal.hidden {
+  display: none;
+}
+
+.privacy-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 17, 35, 0.78);
+  backdrop-filter: blur(8px);
+}
+
+.privacy-panel {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 430px);
+  max-height: calc(100svh - 36px);
+  overflow-y: auto;
+  padding: 26px 22px 22px;
+  border-radius: 26px;
+  background: radial-gradient(circle at top left, rgba(101, 200, 255, 0.16), transparent 32%), linear-gradient(180deg, #09203f 0%, #041225 100%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: white;
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.45);
+}
+
+.privacy-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.privacy-icon {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+  border-radius: 18px;
+  background: rgba(101, 200, 255, 0.12);
+  border: 1px solid rgba(101, 200, 255, 0.25);
+  font-size: 1.7rem;
+}
+
+.privacy-panel h2 {
+  margin-bottom: 12px;
+  color: white;
+  font-size: 1.75rem;
+  line-height: 1;
+  letter-spacing: -0.055em;
+  font-weight: 950;
+}
+
+.privacy-panel p {
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.5;
+  font-weight: 650;
+}
+
+.privacy-list {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.privacy-list strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #65c8ff;
+  font-size: 0.95rem;
+  font-weight: 950;
+}
+
+.privacy-list span {
+  display: block;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  font-weight: 650;
+}
+
+.privacy-ok-btn {
+  width: 100%;
+  min-height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #65c8ff, #3daeed);
+  color: #041c45;
+  font-size: 1rem;
+  font-weight: 950;
+}
+
+
