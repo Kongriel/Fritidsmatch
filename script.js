@@ -354,8 +354,14 @@ function updateAgeOptions() {
 }
 
 function showFormView() {
+  closePrivacyModal();
+
   landingView.classList.remove("active-view");
   formView.classList.add("active-view");
+
+  document.body.classList.remove("modal-open");
+  document.body.style.overflow = "";
+
   window.scrollTo(0, 0);
 }
 
@@ -856,15 +862,14 @@ document.querySelectorAll("input, select, textarea").forEach((field) => {
     }
   });
 });
-
 function openPrivacyModal() {
   privacyModal?.classList.remove("hidden");
-  document.body.style.overflow = "hidden";
+  document.body.classList.add("modal-open");
 }
 
 function closePrivacyModal() {
   privacyModal?.classList.add("hidden");
-  document.body.style.overflow = "";
+  document.body.classList.remove("modal-open");
 }
 
 privacyOpenBtn?.addEventListener("click", openPrivacyModal);
