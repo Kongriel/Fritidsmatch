@@ -362,7 +362,7 @@ a {
   color: white;
   font-size: clamp(2.3rem, 11vw, 4rem);
   line-height: 0.95;
-  letter-spacing: -0.06em;
+  letter-spacing: 1px;
   font-weight: 950;
   text-transform: uppercase;
   text-align: left;
@@ -415,6 +415,7 @@ a {
     position: static;
     font-size: clamp(3rem, 5vw, 5rem);
     text-align: center;
+    letter-spacing: 1px;
   }
 
   .landing-video-wrap {
@@ -1426,7 +1427,7 @@ textarea {
     color: white;
     font-size: clamp(3rem, 5vw, 5rem);
     line-height: 0.95;
-    letter-spacing: -0.06em;
+    letter-spacing: 1px;
     font-weight: 950;
     text-transform: uppercase;
     text-align: center;
@@ -1625,6 +1626,7 @@ textarea {
     right: 42px;
     bottom: 190px;
     z-index: 3;
+    letter-spacing: 1px;
 
     font-size: clamp(4rem, 6vw, 7rem);
   }
@@ -1638,4 +1640,3 @@ textarea {
     align-self: center;
   }
 }
-
