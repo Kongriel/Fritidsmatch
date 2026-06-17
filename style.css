@@ -349,7 +349,7 @@ a {
   z-index: 3;
 
   color: white;
-  font-size: clamp(2.3rem, 9vw, 3rem);
+  font-size: clamp(2.3rem, 8.5vw, 3rem);
   line-height: 0.95;
   letter-spacing: 1px;
   font-weight: 950;
