@@ -15,7 +15,7 @@ const translations = {
     start: "Kom i gang",
     privacy: "Sådan behandler vi dine oplysninger ↗",
 
-    landingTitle: "Find et fritidsmatch",
+    landingTitle: "Find en fritidsaktivitet",
     landingIntro: "Hjælp en person godt ind i en fritidsaktivitet",
 
     landingMainText: "Hjælp en person godt videre til en lokal fritidsaktivitet",
@@ -28,12 +28,12 @@ const translations = {
     privacyPointOneTitle: "Hvad bruger vi oplysningerne til?",
     privacyPointOneText: "Vi bruger dem til at kontakte jer og matche barnet eller den unge med en relevant lokal forening.",
     privacyPointTwoTitle: "Hvem deles de med?",
-    privacyPointTwoText: "Oplysningerne deles kun med relevante personer eller foreninger, som kan hjælpe med fritidsmatch.",
+    privacyPointTwoText: "Oplysningerne deles kun med relevante personer eller foreninger, som kan hjælpe med etfritidsmatch og behandles fortroligt.",
     privacyPointThreeTitle: "Hvor længe gemmes de?",
-    privacyPointThreeText: "Oplysningerne gemmes kun så længe, det er nødvendigt for at følge op på henvendelsen.",
+    privacyPointThreeText: "Oplysningerne gemmes kun indtil der er fulgt op på henvendelsen.",
     privacyOk: "Det er forstået",
 
-    childInfoTitle: "Personens oplysninger",
+    childInfoTitle: "Aktivitetssøgerens oplysninger",
     childInfoText: "Fortæl os lidt om personen.",
     childName: "Navn",
     childNamePlaceholder: "Personens navn",
@@ -65,31 +65,31 @@ const translations = {
     otherLanguage: "Andet sprog",
     otherLanguagePlaceholder: "Skriv evt. andet sprog",
 
-    interestsTitle: "Hvad interesserer Personen?",
+    interestsTitle: "Hvilke fritidsaktiviteter ønskes",
     interestsText: "Vælg en eller flere aktiviteter.",
     interestsHelper: "Vælg mindst én interesse.",
     knowsSomeone: "Kender du nogen, der går til det?",
     knowsSomeonePlaceholder: "Skriv fx personens navn, holdnavn eller forening",
 
     levelTitle: "Niveau og erfaring",
-    levelText: "Hvor meget har barnet prøvet før?",
+    levelText: "Hvor meget har personen prøvet før?",
     beginner: "Nybegynder",
     triedBefore: "Har prøvet det før",
     experienced: "Øvet",
     dontKnow: "Ved ikke endnu",
 
     timeTitle: "Hvornår passer det bedst?",
-    timeText: "Vælg gerne flere muligheder.",
-    afterSchool: "Hverdage efter skole",
-    evenings: "Hverdage om aftenen",
+    timeText: "Vælg en eller flere muligheder.",
+    afterSchool: "Hverdage efter skole, før kl. 19",
+    evenings: "Hverdage om aftenen, efter kl. 19",
     weekend: "Weekend",
-    flexible: "Vi er fleksible",
+    flexible: "Fleksibel",
     timeHelper: "Vælg mindst én mulighed.",
 
-    parentTitle: "Forælderens info",
+    parentTitle: "Forældre / kontaktpersonens info",
     parentText: "Hvordan kan vi kontakte jer?",
-    parentName: "Forælderens navn",
-    parentNamePlaceholder: "Skriv forælderens navn",
+    parentName: "Kontaktpersonens fulde navn",
+    parentNamePlaceholder: "Skriv kontaktpersonens navn",
     phone: "Telefonnummer",
     phonePlaceholder: "Skriv telefonnummer",
     email: "E-mail",
@@ -103,9 +103,8 @@ const translations = {
     consentText: "Sidste skridt.",
     comment: "Kommentar",
     commentPlaceholder: "Skriv evt. noget vi bør vide",
-    consentBox: "Dine oplysninger deles kun med relevante lokale foreninger, som kan kontakte dig med et konkret tilbud om fritidsaktiviteter til dit barn.",
-    consentCheck: "Jeg accepterer, at mine oplysninger må deles med relevante foreninger med henblik på kontakt om fritidstilbud.",
-
+    consentBox: "Dine oplysninger behandles fortroligt og deles kun med kontaktpersonen i de relevante foreninger, som kan kontakte dig med et konkret tilbud om de ønskede fritidsaktiviter.",
+    consentCheck: "Jeg accepterer, at mine oplysninger må deles med en kontakt person fra relevante foreninger.",
     next: "Næste",
     previous: "Tilbage",
     submit: "Send oplysninger",
@@ -136,11 +135,25 @@ const translations = {
     errorContact: "Skriv enten telefonnummer eller e-mail.",
     errorSupport: "Vælg om Personen har brug for kontingentstøtte.",
     errorConsent: "Du skal acceptere samtykke før du kan sende.",
+
+    contactRoleTitle: "Tilknytning",
+    roleParent: "Forælder",
+    roleTeacher: "Lærer",
+    rolePedagogue: "Pædagog",
+    roleOther: "Andet",
+    errorContactRole: "Vælg din tilknytning.",
   },
 
   en: {
     step: "Step",
     of: "of",
+
+    contactRoleTitle: "Relation",
+    roleParent: "Parent",
+    roleTeacher: "Teacher",
+    rolePedagogue: "Pedagogue",
+    roleOther: "Other",
+    errorContactRole: "Choose your relation.",
 
     back: "← Back",
     start: "Get started",
@@ -158,12 +171,12 @@ const translations = {
     privacyPointOneTitle: "What do we use the information for?",
     privacyPointOneText: "We use it to contact you and match the child or young person with a relevant local club.",
     privacyPointTwoTitle: "Who is it shared with?",
-    privacyPointTwoText: "The information is only shared with relevant people or clubs who can help with the leisure match.",
+    privacyPointTwoText: "The information is only shared with relevant people or clubs who can help with the leisure activity match, and it is handled confidentially.",
     privacyPointThreeTitle: "How long is it stored?",
-    privacyPointThreeText: "The information is only stored for as long as needed to follow up on the request.",
+    privacyPointThreeText: "The information is only stored until the enquiry has been followed up on.",
     privacyOk: "Got it",
 
-    childInfoTitle: "The persons information",
+    childInfoTitle: "Activity seeker’s information",
     childInfoText: "Tell us a little about the person.",
     childName: "Name",
     childNamePlaceholder: "Enter the persons name",
@@ -195,7 +208,7 @@ const translations = {
     otherLanguage: "Other language",
     otherLanguagePlaceholder: "Enter another language, if relevant",
 
-    interestsTitle: "What is the person interested in?",
+    interestsTitle: "What activities are you interested in??",
     interestsText: "Choose one or more activities.",
     interestsHelper: "Choose at least one interest.",
     knowsSomeone: "Do you know anyone already attending?",
@@ -216,10 +229,10 @@ const translations = {
     flexible: "We are flexible",
     timeHelper: "Choose at least one option.",
 
-    parentTitle: "Parent´s information",
+    parentTitle: "Contact person information",
     parentText: "How can we contact you?",
-    parentName: "Parent’s name",
-    parentNamePlaceholder: "Enter the parent’s name",
+    parentName: "Contact person’s full name",
+    parentNamePlaceholder: "Enter the contact person’s name",
     phone: "Phone number",
     phonePlaceholder: "Enter phone number",
     email: "Email",
@@ -374,6 +387,22 @@ function showLandingView() {
 startBtn.addEventListener("click", showFormView);
 backToLandingBtn.addEventListener("click", showLandingView);
 
+function scrollToTopOfForm() {
+  const scrollOptions = {
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  };
+
+  // Scroll selve siden
+  window.scrollTo(scrollOptions);
+  document.documentElement.scrollTo?.(scrollOptions);
+  document.body.scrollTo?.(scrollOptions);
+
+  // Scroll form-view hvis det er den, der scroller
+  formView?.scrollTo?.(scrollOptions);
+}
+
 function updateStepView() {
   formSteps.forEach((step, index) => {
     step.classList.toggle("active-step", index === currentStep);
@@ -512,6 +541,15 @@ function updateLanguage() {
   if (steps[4]) {
     steps[4].querySelector("h2").textContent = t("parentTitle");
     steps[4].querySelector("p").textContent = t("parentText");
+
+    const contactRoleTitle = steps[4].querySelector(".field-title-2");
+    if (contactRoleTitle) contactRoleTitle.textContent = t("contactRoleTitle");
+
+    const roleChoices = steps[4].querySelectorAll(".choice-kort span");
+    if (roleChoices[0]) roleChoices[0].textContent = t("roleParent");
+    if (roleChoices[1]) roleChoices[1].textContent = t("roleTeacher");
+    if (roleChoices[2]) roleChoices[2].textContent = t("rolePedagogue");
+    if (roleChoices[3]) roleChoices[3].textContent = t("roleOther");
 
     setLabelText(findLabelByField('input[name="parentName"]'), t("parentName"));
     setLabelText(findLabelByField('input[name="phone"]'), t("phone"));
@@ -687,6 +725,10 @@ function validateFullForm() {
     addError(errors, 3, "errorTimes", 'input[name="preferredTimes"]');
   }
 
+  if (!hasChecked("contactRole")) {
+    addError(errors, 4, "errorContactRole", 'input[name="contactRole"]');
+  }
+
   if (!hasValue('input[name="parentName"]')) {
     addError(errors, 4, "errorParentName", 'input[name="parentName"]');
   }
@@ -728,6 +770,7 @@ function collectFormData() {
     preferred_times: getCheckedValues("preferredTimes"),
 
     parent_name: formData.get("parentName"),
+    contact_role: formData.get("contactRole"),
     phone: formData.get("phone"),
     email: formData.get("email"),
     needs_support: formData.get("needsSupport"),
@@ -760,7 +803,10 @@ nextStepBtn.addEventListener("click", () => {
   if (currentStep < totalSteps - 1) {
     currentStep++;
     updateStepView();
-    window.scrollTo(0, 0);
+
+    requestAnimationFrame(() => {
+      scrollToTopOfForm();
+    });
   }
 });
 
@@ -770,7 +816,10 @@ prevStepBtn.addEventListener("click", () => {
   if (currentStep > 0) {
     currentStep--;
     updateStepView();
-    window.scrollTo(0, 0);
+
+    requestAnimationFrame(() => {
+      scrollToTopOfForm();
+    });
   }
 });
 
@@ -918,3 +967,4 @@ document.querySelectorAll("input, textarea, select").forEach((field) => {
 });
 
 updateLanguage();
+
