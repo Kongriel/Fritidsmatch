@@ -15,9 +15,6 @@
   --shadow: 0 20px 60px rgba(7, 43, 99, 0.12);
   --radius: 24px;
 }
-/* ================================
-   MOBIL SCROLL FIX - FORM VIEW
-================================ */
 
 html,
 body {
@@ -133,10 +130,6 @@ a {
   display: grid;
 }
 
-/* LANDING - MOBILE ONLY */
-
-/* LANDING - STREET MOBILE ONLY */
-
 .landing-left {
   position: relative;
   z-index: 2;
@@ -147,10 +140,6 @@ a {
   flex-direction: column;
   overflow: hidden;
 }
-
-/* LANDING HEADER */
-
-/* LANDING - STREET MOBILE ONLY */
 
 /* LANDING HEADER */
 
@@ -360,7 +349,7 @@ a {
   z-index: 3;
 
   color: white;
-  font-size: clamp(2.3rem, 11vw, 4rem);
+  font-size: clamp(2.3rem, 9vw, 3rem);
   line-height: 0.95;
   letter-spacing: 1px;
   font-weight: 950;
@@ -803,7 +792,7 @@ textarea {
 
 .form-actions {
   display: flex;
-  flex-direction: column;
+
   gap: 11px;
   margin-top: auto;
   padding-top: 24px;
@@ -1639,4 +1628,60 @@ textarea {
   .privacy-link {
     align-self: center;
   }
+}
+
+.field-group {
+  margin-top: 20px;
+}
+
+.field-title-2 {
+  font-size: 0.94rem;
+  font-weight: 850;
+  color: var(--navy);
+  margin-bottom: 15px;
+}
+
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.choice-kort {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 12px 14px;
+  border: 2px solid rgba(25, 46, 88, 0.18);
+  border-radius: 14px;
+  background: #fff;
+  color: #192e58;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.18s ease;
+  user-select: none;
+}
+
+.choice-kort input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.choice-kort:hover {
+  border-color: rgba(25, 46, 88, 0.45);
+  transform: translateY(-1px);
+}
+
+.choice-kort:has(input:checked) {
+  background: #192e58;
+  border-color: #192e58;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(25, 46, 88, 0.18);
+}
+
+.choice-kort span {
+  line-height: 1;
 }
