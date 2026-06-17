@@ -107,6 +107,7 @@ function renderTable(data) {
 
           <td>
             <strong>${escapeHtml(item.parent_name)}</strong>
+            <span class="small-muted">${escapeHtml(item.contact_role || "")}</span>
           </td>
 
           <td>
@@ -114,8 +115,6 @@ function renderTable(data) {
           </td>
 
           <td>${escapeHtml(item.needs_support || "")}</td>
-
-          
         </tr>
       `;
     })
@@ -131,7 +130,7 @@ function filterSubmissions() {
   }
 
   const result = submissions.filter((item) => {
-    const searchableText = [item.child_name, item.child_address, item.child_school, item.child_age, item.child_gender, formatArray(item.child_languages), item.other_language, formatArray(item.interests), item.known_participant, item.level, formatArray(item.preferred_times), item.parent_name, item.phone, item.email, item.needs_support, item.comment, item.language, item.created_at].filter(Boolean).join(" ").toLowerCase();
+    const searchableText = [item.child_name, item.child_address, item.child_school, item.child_age, item.child_gender, formatArray(item.child_languages), item.other_language, formatArray(item.interests), item.known_participant, item.level, formatArray(item.preferred_times), item.parent_name, item.contact_role, item.phone, item.email, item.needs_support, item.comment, item.language, item.created_at].filter(Boolean).join(" ").toLowerCase();
 
     return searchableText.includes(query);
   });
@@ -182,9 +181,9 @@ function downloadCsv() {
 
   if (!rows.length) return;
 
-  const headers = ["Dato", "Barnets navn", "Adresse", "Skole", "Alder", "Køn", "Sprog", "Andet sprog", "Interesser", "Kender nogen", "Niveau", "Passer bedst", "Forælder", "Telefon", "Email", "Kontingentstøtte", "Kommentar", "Samtykke", "Sprog på formular"];
+  const headers = ["Dato", "Navn", "Adresse", "Skole", "Alder", "Køn", "Sprog", "Andet sprog", "Interesser", "Kender nogen", "Niveau", "Passer bedst", "Kontaktperson", "Tilknytning", "Telefon", "Email", "Kontingentstøtte", "Kommentar", "Samtykke", "Sprog på formular"];
 
-  const csvRows = rows.map((item) => [formatDate(item.created_at), item.child_name, item.child_address, item.child_school, item.child_age, item.child_gender, formatArray(item.child_languages), item.other_language, formatArray(item.interests), item.known_participant, item.level, formatArray(item.preferred_times), item.parent_name, item.phone, item.email, item.needs_support, item.comment, item.consent ? "Ja" : "Nej", item.language]);
+  const csvRows = rows.map((item) => [formatDate(item.created_at), item.child_name, item.child_address, item.child_school, item.child_age, item.child_gender, formatArray(item.child_languages), item.other_language, formatArray(item.interests), item.known_participant, item.level, formatArray(item.preferred_times), item.parent_name, item.contact_role, item.phone, item.email, item.needs_support, item.comment, item.consent ? "Ja" : "Nej", item.language]);
 
   const csvContent = [headers.map(convertToCsvValue).join(";"), ...csvRows.map((row) => row.map(convertToCsvValue).join(";"))].join("\n");
 
@@ -255,3 +254,4 @@ searchInput.addEventListener("input", filterSubmissions);
 downloadCsvBtn.addEventListener("click", downloadCsv);
 
 checkSession();
+
