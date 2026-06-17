@@ -44,12 +44,12 @@
                 <div class="landing-content">
                     <div class="landing-video-block">
                         <h1 class="landing-video-title">
-                            Find det rette fritidsmatch
+                            Find en fritidsaktivitet
                         </h1>
 
                         <div class="landing-video-wrap">
                             <video class="landing-video" autoplay muted loop playsinline>
-                                <source src="fritidsmatchforside.mp4" type="video/mp4">
+                                <source src="frtidsmatch forside.mp4" type="video/mp4">
                             </video>
 
                             <div class="landing-video-overlay"></div>
@@ -331,13 +331,40 @@
                 <section class="form-step">
                     <div class="step-badge">5</div>
 
-                    <h2>Forælderens info</h2>
+                    <h2>Forælderens/kontaktpersonens info</h2>
                     <p>Hvordan kan vi kontakte jer?</p>
 
+
+
                     <label>
-                        Forælderens navn
-                        <input type="text" name="parentName" placeholder="Skriv forælderens navn" required />
+                        Forælderens/kontaktpersonens navn
+                        <input type="text" name="parentName" placeholder="Skriv navn" required />
                     </label>
+                    <div class="field-group">
+                        <div class="field-title-2" data-i18n="contactRoleTitle">Tilknytning</div>
+
+                        <div class="choice-grid">
+                            <label class="choice-kort">
+                                <input type="radio" name="contactRole" value="Forælder" required />
+                                <span data-i18n="roleParent">Forælder</span>
+                            </label>
+
+                            <label class="choice-kort">
+                                <input type="radio" name="contactRole" value="Lærer" />
+                                <span data-i18n="roleTeacher">Lærer</span>
+                            </label>
+
+                            <label class="choice-kort">
+                                <input type="radio" name="contactRole" value="Pædagog" />
+                                <span data-i18n="rolePedagogue">Pædagog</span>
+                            </label>
+
+                            <label class="choice-kort">
+                                <input type="radio" name="contactRole" value="Andet" />
+                                <span data-i18n="roleOther">Andet</span>
+                            </label>
+                        </div>
+                    </div>
 
                     <label>
                         Telefonnummer
@@ -364,8 +391,6 @@
                             </label>
                         </div>
                     </div>
-
-
                 </section>
 
                 <!-- STEP 6 -->
@@ -400,7 +425,7 @@
 
                     <div class="success-video-bg">
                         <video class="success-video" autoplay muted loop playsinline>
-                            <source src="fritidsmatchforside.mp4" type="video/mp4">
+                            <source src="frtidsmatch forside.mp4" type="video/mp4">
                         </video>
 
                         <div class="success-video-overlay"></div>
@@ -477,14 +502,14 @@
                     <strong data-privacy-point-two-title>Hvem deles de med?</strong>
                     <span data-privacy-point-two-text>
                         Oplysningerne deles kun med relevante personer eller foreninger, som kan hjælpe med
-                        fritidsmatch.
+                        fritidsmatch og behandles fortroligt.
                     </span>
                 </div>
 
                 <div>
                     <strong data-privacy-point-three-title>Hvor længe gemmes de?</strong>
                     <span data-privacy-point-three-text>
-                        Oplysningerne gemmes kun så længe, det er nødvendigt for at følge op på henvendelsen.
+                        Oplysningerne gemmes kun indtil der er fulgt op på henvendelsen.
                     </span>
                 </div>
             </div>
