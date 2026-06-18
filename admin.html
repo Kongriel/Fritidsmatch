@@ -86,86 +86,87 @@
                     </tbody>
                 </table>
             </div>
+            <section class="analytics-section">
+                <div class="analytics-head">
+                    <div>
+                        <h2>Data-overblik</h2>
+                        <p>Se mønstre i henvendelserne og find mulige nye fritidshold.</p>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <article class="stat-card">
+                        <span>Henvendelser</span>
+                        <strong id="statTotal">0</strong>
+                    </article>
+
+                    <article class="stat-card">
+                        <span>Mest ønsket aktivitet</span>
+                        <strong id="statTopActivity">-</strong>
+                    </article>
+
+                    <article class="stat-card">
+                        <span>Største aldersgruppe</span>
+                        <strong id="statTopAge">-</strong>
+                    </article>
+
+                    <article class="stat-card">
+                        <span>Kontingentstøtte</span>
+                        <strong id="statSupport">0%</strong>
+                    </article>
+                </div>
+
+                <div class="charts-grid">
+                    <article class="chart-card">
+                        <h3>Aldersgrupper</h3>
+                        <canvas id="ageChart"></canvas>
+                    </article>
+
+                    <article class="chart-card">
+                        <h3>Mest ønskede aktiviteter</h3>
+                        <canvas id="activityChart"></canvas>
+                    </article>
+
+                    <article class="chart-card">
+                        <h3>Skoler med flest henvendelser</h3>
+                        <canvas id="schoolChart"></canvas>
+                    </article>
+
+                    <article class="chart-card">
+                        <h3>Tidspunkter der passer bedst</h3>
+                        <canvas id="timeChart"></canvas>
+                    </article>
+                    <article class="chart-card">
+                        <h3>Skoler med mest kontingentstøtte</h3>
+                        <canvas id="schoolSupportChart"></canvas>
+                    </article>
+
+                    <article class="chart-card">
+                        <h3>Kontingentstøtte</h3>
+                        <canvas id="supportChart"></canvas>
+                    </article>
+
+                    <article class="chart-card">
+                        <h3>Hvem udfylder formularen?</h3>
+                        <canvas id="roleChart"></canvas>
+                    </article>
+
+                </div>
+
+                <article class="opportunities-card">
+                    <div>
+                        <h3>Mulige nye hold</h3>
+                        <p>Finder automatisk grupper med samme skole, alder og aktivitet.</p>
+                    </div>
+
+                    <div id="opportunitiesList" class="opportunities-list">
+                        Ingen data endnu.
+                    </div>
+                </article>
+            </section>
         </section>
 
-        <section class="analytics-section">
-            <div class="analytics-head">
-                <div>
-                    <h2>Data-overblik</h2>
-                    <p>Se mønstre i henvendelserne og find mulige nye fritidshold.</p>
-                </div>
-            </div>
 
-            <div class="stats-grid">
-                <article class="stat-card">
-                    <span>Henvendelser</span>
-                    <strong id="statTotal">0</strong>
-                </article>
-
-                <article class="stat-card">
-                    <span>Mest ønsket aktivitet</span>
-                    <strong id="statTopActivity">-</strong>
-                </article>
-
-                <article class="stat-card">
-                    <span>Største aldersgruppe</span>
-                    <strong id="statTopAge">-</strong>
-                </article>
-
-                <article class="stat-card">
-                    <span>Kontingentstøtte</span>
-                    <strong id="statSupport">0%</strong>
-                </article>
-            </div>
-
-            <div class="charts-grid">
-                <article class="chart-card">
-                    <h3>Aldersgrupper</h3>
-                    <canvas id="ageChart"></canvas>
-                </article>
-
-                <article class="chart-card">
-                    <h3>Mest ønskede aktiviteter</h3>
-                    <canvas id="activityChart"></canvas>
-                </article>
-
-                <article class="chart-card">
-                    <h3>Skoler med flest henvendelser</h3>
-                    <canvas id="schoolChart"></canvas>
-                </article>
-
-                <article class="chart-card">
-                    <h3>Tidspunkter der passer bedst</h3>
-                    <canvas id="timeChart"></canvas>
-                </article>
-                <article class="chart-card">
-                    <h3>Skoler med mest kontingentstøtte</h3>
-                    <canvas id="schoolSupportChart"></canvas>
-                </article>
-
-                <article class="chart-card">
-                    <h3>Kontingentstøtte</h3>
-                    <canvas id="supportChart"></canvas>
-                </article>
-
-                <article class="chart-card">
-                    <h3>Hvem udfylder formularen?</h3>
-                    <canvas id="roleChart"></canvas>
-                </article>
-
-            </div>
-
-            <article class="opportunities-card">
-                <div>
-                    <h3>Mulige nye hold</h3>
-                    <p>Finder automatisk grupper med samme skole, alder og aktivitet.</p>
-                </div>
-
-                <div id="opportunitiesList" class="opportunities-list">
-                    Ingen data endnu.
-                </div>
-            </article>
-        </section>
 
     </main>
 
