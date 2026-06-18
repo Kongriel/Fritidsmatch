@@ -27,6 +27,8 @@ const statSupport = document.getElementById("statSupport");
 const opportunitiesList = document.getElementById("opportunitiesList");
 
 let charts = {};
+let chartsAreVisible = false;
+let pendingChartConfigs = {};
 
 let submissions = [];
 let filteredSubmissions = [];
@@ -68,7 +70,12 @@ function formatArray(value) {
 function escapeHtml(value) {
   if (value === null || value === undefined) return "";
 
-  return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
 function getTopEntries(counts, limit = 5) {
@@ -121,13 +128,32 @@ function destroyChart(chartId) {
   }
 }
 
-function renderBarChart(canvasId, labels, values, labelText) {
+function createChart(canvasId, config) {
   const canvas = document.getElementById(canvasId);
-  if (!canvas) return;
+
+  if (!canvas || typeof Chart === "undefined") return;
 
   destroyChart(canvasId);
 
-  charts[canvasId] = new Chart(canvas, {
+  charts[canvasId] = new Chart(canvas, config);
+}
+
+function queueOrCreateChart(canvasId, config) {
+  pendingChartConfigs[canvasId] = config;
+
+  if (chartsAreVisible) {
+    createChart(canvasId, config);
+  }
+}
+
+function renderPendingCharts() {
+  Object.entries(pendingChartConfigs).forEach(([canvasId, config]) => {
+    createChart(canvasId, config);
+  });
+}
+
+function renderBarChart(canvasId, labels, values, labelText) {
+  const config = {
     type: "bar",
     data: {
       labels,
@@ -143,6 +169,10 @@ function renderBarChart(canvasId, labels, values, labelText) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      animation: {
+        duration: 900,
+        easing: "easeOutQuart",
+      },
       plugins: {
         legend: {
           display: false,
@@ -157,16 +187,13 @@ function renderBarChart(canvasId, labels, values, labelText) {
         },
       },
     },
-  });
+  };
+
+  queueOrCreateChart(canvasId, config);
 }
 
 function renderPieChart(canvasId, labels, values, labelText) {
-  const canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-
-  destroyChart(canvasId);
-
-  charts[canvasId] = new Chart(canvas, {
+  const config = {
     type: "doughnut",
     data: {
       labels,
@@ -181,13 +208,21 @@ function renderPieChart(canvasId, labels, values, labelText) {
       responsive: true,
       maintainAspectRatio: false,
       cutout: "62%",
+      animation: {
+        animateRotate: true,
+        animateScale: true,
+        duration: 900,
+        easing: "easeOutQuart",
+      },
       plugins: {
         legend: {
           position: "bottom",
         },
       },
     },
-  });
+  };
+
+  queueOrCreateChart(canvasId, config);
 }
 
 function renderInsights(data) {
@@ -217,7 +252,7 @@ function renderInsights(data) {
     "ageChart",
     ageTop.map(([label]) => label),
     ageTop.map(([, value]) => value),
-    "Antal",
+    "Antal"
   );
 
   const activityTop = getTopEntries(activityCounts, 8);
@@ -225,7 +260,7 @@ function renderInsights(data) {
     "activityChart",
     activityTop.map(([label]) => label),
     activityTop.map(([, value]) => value),
-    "Antal",
+    "Antal"
   );
 
   const schoolTop = getTopEntries(schoolCounts, 8);
@@ -233,14 +268,15 @@ function renderInsights(data) {
     "schoolChart",
     schoolTop.map(([label]) => label),
     schoolTop.map(([, value]) => value),
-    "Antal",
+    "Antal"
   );
+
   const schoolSupportTop = getTopEntries(schoolSupportCounts, 8);
   renderBarChart(
     "schoolSupportChart",
     schoolSupportTop.map(([label]) => label),
     schoolSupportTop.map(([, value]) => value),
-    "Antal med kontingentstøtte",
+    "Antal med kontingentstøtte"
   );
 
   const timeTop = getTopEntries(timeCounts, 8);
@@ -248,7 +284,7 @@ function renderInsights(data) {
     "timeChart",
     timeTop.map(([label]) => label),
     timeTop.map(([, value]) => value),
-    "Antal",
+    "Antal"
   );
 
   const supportTop = getTopEntries(supportCounts, 4);
@@ -256,7 +292,7 @@ function renderInsights(data) {
     "supportChart",
     supportTop.map(([label]) => label),
     supportTop.map(([, value]) => value),
-    "Antal",
+    "Antal"
   );
 
   const roleTop = getTopEntries(roleCounts, 6);
@@ -264,7 +300,7 @@ function renderInsights(data) {
     "roleChart",
     roleTop.map(([label]) => label),
     roleTop.map(([, value]) => value),
-    "Antal",
+    "Antal"
   );
 
   renderOpportunities(data);
@@ -328,7 +364,10 @@ function renderOpportunities(data) {
   opportunitiesList.innerHTML = opportunities
     .map((group) => {
       const topTime = getTopEntries(group.times, 1)[0];
-      const supportText = group.supportCount > 0 ? `${group.supportCount} med behov for kontingentstøtte` : "Ingen har angivet kontingentstøtte";
+      const supportText =
+        group.supportCount > 0
+          ? `${group.supportCount} med behov for kontingentstøtte`
+          : "Ingen har angivet kontingentstøtte";
 
       return `
         <div class="opportunity-item">
@@ -412,7 +451,30 @@ function filterSubmissions() {
   }
 
   const result = submissions.filter((item) => {
-    const searchableText = [item.child_name, item.child_address, item.child_school, item.child_age, item.child_gender, formatArray(item.child_languages), item.other_language, formatArray(item.interests), item.known_participant, item.level, formatArray(item.preferred_times), item.parent_name, item.contact_role, item.phone, item.email, item.needs_support, item.comment, item.language, item.created_at].filter(Boolean).join(" ").toLowerCase();
+    const searchableText = [
+      item.child_name,
+      item.child_address,
+      item.child_school,
+      item.child_age,
+      item.child_gender,
+      formatArray(item.child_languages),
+      item.other_language,
+      formatArray(item.interests),
+      item.known_participant,
+      item.level,
+      formatArray(item.preferred_times),
+      item.parent_name,
+      item.contact_role,
+      item.phone,
+      item.email,
+      item.needs_support,
+      item.comment,
+      item.language,
+      item.created_at,
+    ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
 
     return searchableText.includes(query);
   });
@@ -427,7 +489,10 @@ async function loadSubmissions() {
     </tr>
   `;
 
-  const { data, error } = await supabaseClient.from("fritidsmatch_submissions").select("*").order("created_at", { ascending: false });
+  const { data, error } = await supabaseClient
+    .from("fritidsmatch_submissions")
+    .select("*")
+    .order("created_at", { ascending: false });
 
   if (error) {
     console.error("Kunne ikke hente tilmeldinger:", error);
@@ -463,11 +528,56 @@ function downloadCsv() {
 
   if (!rows.length) return;
 
-  const headers = ["Dato", "Navn", "Adresse", "Skole", "Alder", "Køn", "Sprog", "Andet sprog", "Interesser", "Kender nogen", "Niveau", "Passer bedst", "Kontaktperson", "Tilknytning", "Telefon", "Email", "Kontingentstøtte", "Kommentar", "Samtykke", "Sprog på formular"];
+  const headers = [
+    "Dato",
+    "Navn",
+    "Adresse",
+    "Skole",
+    "Alder",
+    "Køn",
+    "Sprog",
+    "Andet sprog",
+    "Interesser",
+    "Kender nogen",
+    "Niveau",
+    "Passer bedst",
+    "Kontaktperson",
+    "Tilknytning",
+    "Telefon",
+    "Email",
+    "Kontingentstøtte",
+    "Kommentar",
+    "Samtykke",
+    "Sprog på formular",
+  ];
 
-  const csvRows = rows.map((item) => [formatDate(item.created_at), item.child_name, item.child_address, item.child_school, item.child_age, item.child_gender, formatArray(item.child_languages), item.other_language, formatArray(item.interests), item.known_participant, item.level, formatArray(item.preferred_times), item.parent_name, item.contact_role, item.phone, item.email, item.needs_support, item.comment, item.consent ? "Ja" : "Nej", item.language]);
+  const csvRows = rows.map((item) => [
+    formatDate(item.created_at),
+    item.child_name,
+    item.child_address,
+    item.child_school,
+    item.child_age,
+    item.child_gender,
+    formatArray(item.child_languages),
+    item.other_language,
+    formatArray(item.interests),
+    item.known_participant,
+    item.level,
+    formatArray(item.preferred_times),
+    item.parent_name,
+    item.contact_role,
+    item.phone,
+    item.email,
+    item.needs_support,
+    item.comment,
+    item.consent ? "Ja" : "Nej",
+    item.language,
+  ]);
 
-  const csvContent = [headers.map(convertToCsvValue).join(";"), ...csvRows.map((row) => row.map(convertToCsvValue).join(";"))].join("\n");
+  const csvContent = [
+    headers.map(convertToCsvValue).join(";"),
+    ...csvRows.map((row) => row.map(convertToCsvValue).join(";")),
+  ].join("\n");
 
   const blob = new Blob(["\uFEFF" + csvContent], {
     type: "text/csv;charset=utf-8;",
@@ -535,5 +645,25 @@ logoutBtn.addEventListener("click", async () => {
 searchInput.addEventListener("input", filterSubmissions);
 downloadCsvBtn.addEventListener("click", downloadCsv);
 
-checkSession();
+const analyticsSection = document.querySelector(".analytics-section");
 
+if (analyticsSection) {
+  const analyticsObserver = new IntersectionObserver(
+    (entries) => {
+      const entry = entries[0];
+
+      if (entry.isIntersecting) {
+        chartsAreVisible = true;
+        renderPendingCharts();
+        analyticsObserver.unobserve(analyticsSection);
+      }
+    },
+    {
+      threshold: 0.2,
+    }
+  );
+
+  analyticsObserver.observe(analyticsSection);
+}
+
+checkSession();
