@@ -19,6 +19,15 @@ const downloadCsvBtn = document.getElementById("downloadCsvBtn");
 const submissionsTable = document.getElementById("submissionsTable");
 const countText = document.getElementById("countText");
 
+const statTotal = document.getElementById("statTotal");
+const statTopActivity = document.getElementById("statTopActivity");
+const statTopAge = document.getElementById("statTopAge");
+const statSupport = document.getElementById("statSupport");
+
+const opportunitiesList = document.getElementById("opportunitiesList");
+
+let charts = {};
+
 let submissions = [];
 let filteredSubmissions = [];
 
@@ -62,8 +71,281 @@ function escapeHtml(value) {
   return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
 }
 
+function getTopEntries(counts, limit = 5) {
+  return Object.entries(counts)
+    .filter(([name]) => name && name.trim() !== "")
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, limit);
+}
+
+function countSingleValue(data, key) {
+  return data.reduce((acc, item) => {
+    const value = item[key];
+
+    if (!value) return acc;
+
+    acc[value] = (acc[value] || 0) + 1;
+    return acc;
+  }, {});
+}
+
+function countSupportBySchool(data) {
+  return data.reduce((acc, item) => {
+    if (item.needs_support !== "Ja") return acc;
+
+    const school = item.child_school || "Ukendt skole";
+
+    acc[school] = (acc[school] || 0) + 1;
+
+    return acc;
+  }, {});
+}
+
+function countArrayValue(data, key) {
+  return data.reduce((acc, item) => {
+    const values = Array.isArray(item[key]) ? item[key] : [];
+
+    values.forEach((value) => {
+      if (!value) return;
+      acc[value] = (acc[value] || 0) + 1;
+    });
+
+    return acc;
+  }, {});
+}
+
+function destroyChart(chartId) {
+  if (charts[chartId]) {
+    charts[chartId].destroy();
+    charts[chartId] = null;
+  }
+}
+
+function renderBarChart(canvasId, labels, values, labelText) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+
+  destroyChart(canvasId);
+
+  charts[canvasId] = new Chart(canvas, {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [
+        {
+          label: labelText,
+          data: values,
+          borderRadius: 10,
+          borderSkipped: false,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            precision: 0,
+          },
+        },
+      },
+    },
+  });
+}
+
+function renderPieChart(canvasId, labels, values, labelText) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+
+  destroyChart(canvasId);
+
+  charts[canvasId] = new Chart(canvas, {
+    type: "doughnut",
+    data: {
+      labels,
+      datasets: [
+        {
+          label: labelText,
+          data: values,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: "62%",
+      plugins: {
+        legend: {
+          position: "bottom",
+        },
+      },
+    },
+  });
+}
+
+function renderInsights(data) {
+  const total = data.length;
+
+  const ageCounts = countSingleValue(data, "child_age");
+  const activityCounts = countArrayValue(data, "interests");
+  const schoolCounts = countSingleValue(data, "child_school");
+  const schoolSupportCounts = countSupportBySchool(data);
+  const timeCounts = countArrayValue(data, "preferred_times");
+  const supportCounts = countSingleValue(data, "needs_support");
+  const roleCounts = countSingleValue(data, "contact_role");
+
+  const topAge = getTopEntries(ageCounts, 1)[0];
+  const topActivity = getTopEntries(activityCounts, 1)[0];
+
+  const supportYes = data.filter((item) => item.needs_support === "Ja").length;
+  const supportPercent = total ? Math.round((supportYes / total) * 100) : 0;
+
+  if (statTotal) statTotal.textContent = total;
+  if (statTopActivity) statTopActivity.textContent = topActivity ? topActivity[0] : "-";
+  if (statTopAge) statTopAge.textContent = topAge ? topAge[0] : "-";
+  if (statSupport) statSupport.textContent = `${supportPercent}%`;
+
+  const ageTop = getTopEntries(ageCounts, 8);
+  renderBarChart(
+    "ageChart",
+    ageTop.map(([label]) => label),
+    ageTop.map(([, value]) => value),
+    "Antal",
+  );
+
+  const activityTop = getTopEntries(activityCounts, 8);
+  renderBarChart(
+    "activityChart",
+    activityTop.map(([label]) => label),
+    activityTop.map(([, value]) => value),
+    "Antal",
+  );
+
+  const schoolTop = getTopEntries(schoolCounts, 8);
+  renderBarChart(
+    "schoolChart",
+    schoolTop.map(([label]) => label),
+    schoolTop.map(([, value]) => value),
+    "Antal",
+  );
+  const schoolSupportTop = getTopEntries(schoolSupportCounts, 8);
+  renderBarChart(
+    "schoolSupportChart",
+    schoolSupportTop.map(([label]) => label),
+    schoolSupportTop.map(([, value]) => value),
+    "Antal med kontingentstøtte",
+  );
+
+  const timeTop = getTopEntries(timeCounts, 8);
+  renderBarChart(
+    "timeChart",
+    timeTop.map(([label]) => label),
+    timeTop.map(([, value]) => value),
+    "Antal",
+  );
+
+  const supportTop = getTopEntries(supportCounts, 4);
+  renderPieChart(
+    "supportChart",
+    supportTop.map(([label]) => label),
+    supportTop.map(([, value]) => value),
+    "Antal",
+  );
+
+  const roleTop = getTopEntries(roleCounts, 6);
+  renderPieChart(
+    "roleChart",
+    roleTop.map(([label]) => label),
+    roleTop.map(([, value]) => value),
+    "Antal",
+  );
+
+  renderOpportunities(data);
+}
+
+function renderOpportunities(data) {
+  if (!opportunitiesList) return;
+
+  const groups = {};
+
+  data.forEach((item) => {
+    const school = item.child_school || "Ukendt skole";
+    const age = item.child_age || "Ukendt alder";
+    const interests = Array.isArray(item.interests) ? item.interests : [];
+
+    interests.forEach((activity) => {
+      if (!activity) return;
+
+      const key = `${school}|||${age}|||${activity}`;
+
+      if (!groups[key]) {
+        groups[key] = {
+          school,
+          age,
+          activity,
+          count: 0,
+          supportCount: 0,
+          times: {},
+        };
+      }
+
+      groups[key].count += 1;
+
+      if (item.needs_support === "Ja") {
+        groups[key].supportCount += 1;
+      }
+
+      const preferredTimes = Array.isArray(item.preferred_times) ? item.preferred_times : [];
+
+      preferredTimes.forEach((time) => {
+        groups[key].times[time] = (groups[key].times[time] || 0) + 1;
+      });
+    });
+  });
+
+  const opportunities = Object.values(groups)
+    .filter((group) => group.count >= 3)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 8);
+
+  if (!opportunities.length) {
+    opportunitiesList.innerHTML = `
+      <div class="opportunity-item">
+        <strong>Ingen tydelige mønstre endnu</strong>
+        <span>Når der kommer flere henvendelser, vises mulige nye hold automatisk her.</span>
+      </div>
+    `;
+    return;
+  }
+
+  opportunitiesList.innerHTML = opportunities
+    .map((group) => {
+      const topTime = getTopEntries(group.times, 1)[0];
+      const supportText = group.supportCount > 0 ? `${group.supportCount} med behov for kontingentstøtte` : "Ingen har angivet kontingentstøtte";
+
+      return `
+        <div class="opportunity-item">
+          <strong>${escapeHtml(group.activity)} · ${escapeHtml(group.age)} · ${escapeHtml(group.school)}</strong>
+          <span>${group.count} personer matcher denne gruppe</span>
+          <span>Bedste tidspunkt: ${escapeHtml(topTime ? topTime[0] : "Ikke nok data")}</span>
+          <span>${escapeHtml(supportText)}</span>
+        </div>
+      `;
+    })
+    .join("");
+}
+
 function renderTable(data) {
   filteredSubmissions = data;
+
+  renderInsights(data);
 
   if (!data.length) {
     submissionsTable.innerHTML = `
