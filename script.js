@@ -23,12 +23,15 @@ const translations = {
     landingBadgeTime: "Tager 2-3 minutter",
     landingBadgeContact: "Vi kontakter jer",
 
+    preferredTimeNote: "Skriv gerne specifik dag og tidspunkt",
+    preferredTimeNotePlaceholder: "Fx tirsdag efter kl. 16 eller torsdag mellem 15-17",
+
     privacyTitle: "Sådan behandler vi dine oplysninger",
     privacyIntro: "Vi bruger kun oplysningerne til at hjælpe med at finde et relevant fritidstilbud.",
     privacyPointOneTitle: "Hvad bruger vi oplysningerne til?",
     privacyPointOneText: "Vi bruger dem til at kontakte jer og matche barnet eller den unge med en relevant lokal forening.",
     privacyPointTwoTitle: "Hvem deles de med?",
-    privacyPointTwoText: "Oplysningerne deles kun med relevante personer eller foreninger, som kan hjælpe med etfritidsmatch og behandles fortroligt.",
+    privacyPointTwoText: "Oplysningerne deles kun med relevante personer eller foreninger, som kan hjælpe med et fritidsmatch og behandles fortroligt.",
     privacyPointThreeTitle: "Hvor længe gemmes de?",
     privacyPointThreeText: "Oplysningerne gemmes kun indtil der er fulgt op på henvendelsen.",
     privacyOk: "Det er forstået",
@@ -40,9 +43,22 @@ const translations = {
     childAddress: "Adresse",
     childAddressPlaceholder: "Personens adresse",
     childSchool: "Skole",
-    childSchoolPlaceholder: "Skolens navn",
+    chooseSchool: "Vælg skole",
     childAge: "Alder",
     chooseAge: "Vælg alder",
+
+    schoolOptions: {
+      "Valby Skole": "Valby Skole",
+      "Lykkebo Skole": "Lykkebo Skole",
+      "Hanssted Skole": "Hanssted Skole",
+      "Kirsebærhavens Skole": "Kirsebærhavens Skole",
+      "Ellebjerg Skole": "Ellebjerg Skole",
+      "Vigerslev Allés Skole": "Vigerslev Allés Skole",
+      "Ålholm Skole": "Ålholm Skole",
+      "Harrestrup Å Skole": "Harrestrup Å Skole",
+      "Specialfritidsinstitutionen ved Kirsebærhavens Skole": "Specialfritidsinstitutionen ved Kirsebærhavens Skole",
+      "Anden skole / ikke på listen": "Anden skole / ikke på listen",
+    },
 
     ageOptions: {
       "6-8 år": "6-8 år",
@@ -68,6 +84,10 @@ const translations = {
     interestsTitle: "Hvilke fritidsaktiviteter ønskes",
     interestsText: "Vælg en eller flere aktiviteter.",
     interestsHelper: "Vælg mindst én interesse.",
+
+    preferredAssociation: "Kender I allerede en forening, barnet gerne vil gå i?",
+    preferredAssociationPlaceholder: "Skriv fx Valby IF, Fremad Valby, Valby Judoklub, B3B eller lignende",
+
     knowsSomeone: "Kender du nogen, der går til det?",
     knowsSomeonePlaceholder: "Skriv fx personens navn, holdnavn eller forening",
 
@@ -99,12 +119,19 @@ const translations = {
     no: "Nej",
     contactHelper: "Skriv gerne enten telefonnummer eller e-mail.",
 
+    supportInfoLink: "Hvad er kontingentstøtte?",
+    supportModalTitle: "Hvad er kontingentstøtte?",
+    supportModalTextOne: "Kontingentstøtte er økonomisk hjælp til børn og unge, så de kan gå til en fritidsaktivitet.",
+    supportModalTextTwo: "Støtten kan bruges til kontingent og i nogle tilfælde også udstyr eller stævnedeltagelse.",
+    supportModalTextThree: "Ordningen er især for familier, hvor økonomien gør det svært at betale for en fritidsaktivitet. Foreningen søger normalt støtten på vegne af barnet.",
+    supportModalOk: "Det er forstået",
+
     consentTitle: "Kommentar og samtykke",
     consentText: "Sidste skridt.",
     comment: "Kommentar",
     commentPlaceholder: "Skriv evt. noget vi bør vide",
-    consentBox: "Dine oplysninger behandles fortroligt og deles kun med kontaktpersonen i de relevante foreninger, som kan kontakte dig med et konkret tilbud om de ønskede fritidsaktiviter.",
-    consentCheck: "Jeg accepterer, at mine oplysninger må deles med en kontakt person fra relevante foreninger.",
+    consentBox: "Dine oplysninger behandles fortroligt og deles kun med kontaktpersonen i de relevante foreninger, som kan kontakte dig med et konkret tilbud om de ønskede fritidsaktiviteter.",
+    consentCheck: "Jeg accepterer, at mine oplysninger må deles med en kontaktperson fra relevante foreninger.",
     next: "Næste",
     previous: "Tilbage",
     submit: "Send oplysninger",
@@ -125,15 +152,15 @@ const translations = {
     errorTitle: "Du mangler lige:",
     errorChildName: "Personens navn mangler.",
     errorChildAddress: "Personens adresse mangler.",
-    errorChildSchool: "Personens skole mangler.",
+    errorChildSchool: "Vælg personens skole.",
     errorChildAge: "Personens alder mangler.",
     errorChildGender: "Personens køn mangler.",
     errorInterests: "Vælg mindst én aktivitet.",
-    errorLevel: "Vælg Personens niveau.",
+    errorLevel: "Vælg personens niveau.",
     errorTimes: "Vælg hvornår det passer bedst.",
-    errorParentName: "Forælderens navn mangler.",
+    errorParentName: "Forælderens/kontaktpersonens navn mangler.",
     errorContact: "Skriv enten telefonnummer eller e-mail.",
-    errorSupport: "Vælg om Personen har brug for kontingentstøtte.",
+    errorSupport: "Vælg om personen har brug for kontingentstøtte.",
     errorConsent: "Du skal acceptere samtykke før du kan sende.",
 
     contactRoleTitle: "Tilknytning",
@@ -158,8 +185,11 @@ const translations = {
     back: "← Back",
     start: "Get started",
     privacy: "How we process your information ↗",
+
     landingTitle: "Find a leisure activity",
     landingIntro: "Help a person get involved in a leisure activity",
+    preferredTimeNote: "Please write a specific day and time",
+    preferredTimeNotePlaceholder: "E.g. Tuesday after 4 PM or Thursday between 3-5 PM",
 
     landingMainText: "Help a person get involved in a leisure activity",
     landingSupportText: "Fill out the form, takes 2 minutes and we will help you find a good match.",
@@ -179,13 +209,26 @@ const translations = {
     childInfoTitle: "Activity seeker’s information",
     childInfoText: "Tell us a little about the person.",
     childName: "Name",
-    childNamePlaceholder: "Enter the persons name",
+    childNamePlaceholder: "Enter the person’s name",
     childAddress: "Address",
-    childAddressPlaceholder: "Enter the persons address",
+    childAddressPlaceholder: "Enter the person’s address",
     childSchool: "School",
-    childSchoolPlaceholder: "Name of the school",
+    chooseSchool: "Choose school",
     childAge: "Age",
     chooseAge: "Choose age",
+
+    schoolOptions: {
+      "Valby Skole": "Valby Skole",
+      "Lykkebo Skole": "Lykkebo Skole",
+      "Hanssted Skole": "Hanssted Skole",
+      "Kirsebærhavens Skole": "Kirsebærhavens Skole",
+      "Ellebjerg Skole": "Ellebjerg Skole",
+      "Vigerslev Allés Skole": "Vigerslev Allés Skole",
+      "Ålholm Skole": "Ålholm Skole",
+      "Harrestrup Å Skole": "Harrestrup Å Skole",
+      "Specialfritidsinstitutionen ved Kirsebærhavens Skole": "Special after-school institution at Kirsebærhavens Skole",
+      "Anden skole / ikke på listen": "Other school / not on the list",
+    },
 
     ageOptions: {
       "6-8 år": "6-8 years",
@@ -208,14 +251,18 @@ const translations = {
     otherLanguage: "Other language",
     otherLanguagePlaceholder: "Enter another language, if relevant",
 
-    interestsTitle: "What activities are you interested in??",
+    interestsTitle: "What activities are wanted?",
     interestsText: "Choose one or more activities.",
     interestsHelper: "Choose at least one interest.",
+
+    preferredAssociation: "Do you already know a club the child would like to join?",
+    preferredAssociationPlaceholder: "Write e.g. Valby IF, Fremad Valby, Valby Judoklub, B3B or similar",
+
     knowsSomeone: "Do you know anyone already attending?",
     knowsSomeonePlaceholder: "Write the child’s name, team name or club",
 
     levelTitle: "Level and experience",
-    levelText: "How much experience does the child have?",
+    levelText: "How much experience does the person have?",
     beginner: "Beginner",
     triedBefore: "Has tried it before",
     experienced: "Experienced",
@@ -223,10 +270,10 @@ const translations = {
 
     timeTitle: "When does it work best?",
     timeText: "Choose one or more options.",
-    afterSchool: "Weekdays after school",
-    evenings: "Weekday evenings",
+    afterSchool: "Weekdays after school, before 7 PM",
+    evenings: "Weekday evenings, after 7 PM",
     weekend: "Weekend",
-    flexible: "We are flexible",
+    flexible: "Flexible",
     timeHelper: "Choose at least one option.",
 
     parentTitle: "Contact person information",
@@ -241,6 +288,13 @@ const translations = {
     yes: "Yes",
     no: "No",
     contactHelper: "Please enter either a phone number or an email.",
+
+    supportInfoLink: "What is financial membership support?",
+    supportModalTitle: "What is financial membership support?",
+    supportModalTextOne: "Financial membership support helps children and young people take part in a leisure activity.",
+    supportModalTextTwo: "The support can be used for membership fees and, in some cases, equipment or event participation.",
+    supportModalTextThree: "The support is especially for families where the economy makes it difficult to pay for a leisure activity. The club usually applies for the support on behalf of the child.",
+    supportModalOk: "Got it",
 
     consentTitle: "Comment and consent",
     consentText: "Final step.",
@@ -267,15 +321,15 @@ const translations = {
     successHomeBtn: "Back to front page",
 
     errorTitle: "You still need to add:",
-    errorChildName: "The person´s name is missing.",
-    errorChildAddress: "The person´s address is missing.",
-    errorChildSchool: "The person´s school is missing.",
-    errorChildAge: "The person´s age is missing.",
-    errorChildGender: "The person´s gender is missing.",
+    errorChildName: "The person’s name is missing.",
+    errorChildAddress: "The person’s address is missing.",
+    errorChildSchool: "Choose the person’s school.",
+    errorChildAge: "The person’s age is missing.",
+    errorChildGender: "The person’s gender is missing.",
     errorInterests: "Choose at least one activity.",
-    errorLevel: "Choose the person´s level.",
+    errorLevel: "Choose the person’s level.",
     errorTimes: "Choose when it works best.",
-    errorParentName: "The parent’s name is missing.",
+    errorParentName: "The contact person’s name is missing.",
     errorContact: "Enter either a phone number or an email.",
     errorSupport: "Choose whether the person needs financial support.",
     errorConsent: "You need to accept the consent before submitting.",
@@ -308,6 +362,43 @@ const progressFill = document.getElementById("progressFill");
 
 const formErrorBox = document.getElementById("formErrorBox");
 const formErrorList = document.getElementById("formErrorList");
+
+const VALBY_ACTIVITY_ASSOCIATIONS = {
+  Fodbold: ["Fremad Valby", "Valby Boldklub", "Valby United", "Vigerslev Boldklub", "BK Frem", "BK Hellas"],
+  Gymnastik: ["Valby IF Gymnastik", "Fremad Valby", "Øbro Gymnastik"],
+  Håndbold: ["Fremad Valby", "Ajax København"],
+  Basketball: ["B3B Basketball", "Valby Vespas"],
+  Svømning: ["Fremad Valby", "HSK i Valby Vandkulturhus", "Valby Vandkulturhus"],
+  Badminton: ["Hi Badminton", "Sct. Jørgen"],
+  Tennis: ["Lokale tennistilbud i Valby"],
+  Dans: ["Valby IF Gymnastik", "Børnekulturstedet Valby"],
+  Judo: ["Valby Judoklub"],
+  Karate: ["Seidokan Japan Center", "Bosatsu Karate", "Musashi Shotokan Karate-Do"],
+  "Krav Maga": ["Krav Maga Valby"],
+  Atletik: ["Lokale atletik-/løbetilbud i Valby"],
+  Floorball: ["Copenhagen Floorball Club"],
+  Futsal: ["Københavns Futsal", "Arctos"],
+  Volleyball: ["Pan Volleyball"],
+  Rulleskøjteløb: ["Vesterbro Rulleskøjteklub"],
+  "Amerikansk fodbold": ["Copenhagen Raptors"],
+  Baseball: ["Copenhagen Baseball Club"],
+  Hockey: ["Københavns Hockeyklub", "Pan Hockey"],
+  Petanque: ["Fremad Valby Petanque"],
+  "E-sport": ["Valby United"],
+  "Spejder / FDF": ["FDF K23 Valby", "FDF K17 Valby"],
+  "Teater / drama": ["Børnekulturstedet Valby", "FDF K17 Valby"],
+  "Krea / billedkunst": ["Børnekulturstedet Valby"],
+  "Musik / sang": ["Copenhagen Music", "FDF K17 Valby", "Børnekulturstedet Valby"],
+  Rollespil: ["Børnekulturstedet Valby"],
+  Andet: [],
+};
+
+function getMatchedAssociations(selectedInterests) {
+  return selectedInterests.map((activity) => ({
+    activity,
+    associations: VALBY_ACTIVITY_ASSOCIATIONS[activity] || [],
+  }));
+}
 
 let currentStep = 0;
 const totalSteps = formSteps.length;
@@ -366,6 +457,32 @@ function updateAgeOptions() {
   });
 }
 
+function updateSchoolOptions() {
+  const schoolSelect = document.querySelector('select[name="childSchool"]');
+  if (!schoolSelect) return;
+
+  const emptyOption = schoolSelect.querySelector('option[value=""]');
+  if (emptyOption) emptyOption.textContent = t("chooseSchool");
+
+  schoolSelect.querySelectorAll("option").forEach((option) => {
+    if (!option.value) return;
+
+    const translatedSchool = translations[currentLanguage].schoolOptions?.[option.value];
+
+    if (translatedSchool) {
+      option.textContent = translatedSchool;
+    }
+  });
+}
+
+function resetSchoolSelectIfEmpty() {
+  const schoolSelect = document.querySelector('select[name="childSchool"]');
+
+  if (schoolSelect && !schoolSelect.value) {
+    schoolSelect.value = "";
+  }
+}
+
 function showFormView() {
   closePrivacyModal();
 
@@ -394,12 +511,9 @@ function scrollToTopOfForm() {
     behavior: "smooth",
   };
 
-  // Scroll selve siden
   window.scrollTo(scrollOptions);
   document.documentElement.scrollTo?.(scrollOptions);
   document.body.scrollTo?.(scrollOptions);
-
-  // Scroll form-view hvis det er den, der scroller
   formView?.scrollTo?.(scrollOptions);
 }
 
@@ -419,6 +533,18 @@ function updateStepView() {
 
   nextStepBtn.classList.toggle("hidden", isLastStep);
   submitBtn.classList.toggle("hidden", !isLastStep);
+}
+
+function updateSupportModalLanguage() {
+  setText("#openSupportModal", t("supportInfoLink"));
+  setText("#supportModalTitle", t("supportModalTitle"));
+
+  const supportParagraphs = document.querySelectorAll(".support-modal-card p");
+  if (supportParagraphs[0]) supportParagraphs[0].textContent = t("supportModalTextOne");
+  if (supportParagraphs[1]) supportParagraphs[1].textContent = t("supportModalTextTwo");
+  if (supportParagraphs[2]) supportParagraphs[2].textContent = t("supportModalTextThree");
+
+  setText(".support-modal-btn", t("supportModalOk"));
 }
 
 function updateLanguage() {
@@ -449,10 +575,6 @@ function updateLanguage() {
   setText("[data-privacy-point-three-text]", t("privacyPointThreeText"));
   setText("[data-privacy-ok]", t("privacyOk"));
 
-  const benefits = document.querySelectorAll(".benefit-item span");
-  if (benefits[0]) benefits[0].textContent = t("benefit1");
-  if (benefits[1]) benefits[1].textContent = t("benefit2");
-
   if (formErrorBox) {
     const errorTitle = formErrorBox.querySelector("strong");
     if (errorTitle) errorTitle.textContent = t("errorTitle");
@@ -470,15 +592,15 @@ function updateLanguage() {
 
     setLabelText(findLabelByField('input[name="childName"]'), t("childName"));
     setLabelText(findLabelByField('input[name="childAddress"]'), t("childAddress"));
-    setLabelText(findLabelByField('input[name="childSchool"]'), t("childSchool"));
+    setLabelText(findLabelByField('select[name="childSchool"]'), t("childSchool"));
     setLabelText(findLabelByField('select[name="childAge"]'), t("childAge"));
     setLabelText(findLabelByField('input[name="otherLanguage"]'), t("otherLanguage"));
 
     setPlaceholder('input[name="childName"]', t("childNamePlaceholder"));
     setPlaceholder('input[name="childAddress"]', t("childAddressPlaceholder"));
-    setPlaceholder('input[name="childSchool"]', t("childSchoolPlaceholder"));
     setPlaceholder('input[name="otherLanguage"]', t("otherLanguagePlaceholder"));
 
+    updateSchoolOptions();
     updateAgeOptions();
 
     const fieldTitles = steps[0].querySelectorAll(".field-title");
@@ -509,6 +631,9 @@ function updateLanguage() {
     const helper = steps[1].querySelector(".helper-text");
     if (helper) helper.textContent = t("interestsHelper");
 
+    setLabelText(findLabelByField('textarea[name="preferredAssociation"]'), t("preferredAssociation"));
+    setPlaceholder('textarea[name="preferredAssociation"]', t("preferredAssociationPlaceholder"));
+
     setLabelText(findLabelByField('textarea[name="knownParticipant"]'), t("knowsSomeone"));
     setPlaceholder('textarea[name="knownParticipant"]', t("knowsSomeonePlaceholder"));
   }
@@ -536,6 +661,9 @@ function updateLanguage() {
 
     const helper = steps[3].querySelector(".helper-text");
     if (helper) helper.textContent = t("timeHelper");
+
+    setLabelText(findLabelByField('textarea[name="preferredTimeNote"]'), t("preferredTimeNote"));
+    setPlaceholder('textarea[name="preferredTimeNote"]', t("preferredTimeNotePlaceholder"));
   }
 
   if (steps[4]) {
@@ -568,6 +696,8 @@ function updateLanguage() {
 
     const helper = steps[4].querySelector(".helper-text");
     if (helper) helper.textContent = t("contactHelper");
+
+    updateSupportModalLanguage();
   }
 
   if (steps[5]) {
@@ -606,7 +736,7 @@ function getCheckedValues(name) {
 
 function hasValue(selector) {
   const field = document.querySelector(selector);
-  return field && field.value.trim().length > 0;
+  return field && String(field.value || "").trim().length > 0;
 }
 
 function hasChecked(name) {
@@ -701,8 +831,8 @@ function validateFullForm() {
     addError(errors, 0, "errorChildAddress", 'input[name="childAddress"]');
   }
 
-  if (!hasValue('input[name="childSchool"]')) {
-    addError(errors, 0, "errorChildSchool", 'input[name="childSchool"]');
+  if (!hasValue('select[name="childSchool"]')) {
+    addError(errors, 0, "errorChildSchool", 'select[name="childSchool"]');
   }
 
   if (!hasValue('select[name="childAge"]')) {
@@ -751,23 +881,33 @@ function validateFullForm() {
   return errors;
 }
 
+function normalizeSchoolName(value) {
+  return String(value || "").trim();
+}
+
 function collectFormData() {
   const formData = new FormData(form);
+
+  const selectedInterests = getCheckedValues("interests");
+  const matchedAssociations = getMatchedAssociations(selectedInterests);
 
   return {
     child_name: formData.get("childName"),
     child_address: formData.get("childAddress"),
-    child_school: formData.get("childSchool"),
+    child_school: normalizeSchoolName(formData.get("childSchool")),
     child_age: formData.get("childAge"),
     child_gender: formData.get("childGender"),
     child_languages: getCheckedValues("childLanguages"),
     other_language: formData.get("otherLanguage"),
 
-    interests: getCheckedValues("interests"),
+    interests: selectedInterests,
+    matched_associations: matchedAssociations,
+    preferred_association: formData.get("preferredAssociation"),
     known_participant: formData.get("knownParticipant"),
 
     level: formData.get("level"),
     preferred_times: getCheckedValues("preferredTimes"),
+    preferred_time_note: formData.get("preferredTimeNote"),
 
     parent_name: formData.get("parentName"),
     contact_role: formData.get("contactRole"),
@@ -874,6 +1014,9 @@ if (successHomeBtn) {
   successHomeBtn.addEventListener("click", () => {
     form.reset();
 
+    const schoolSelect = document.querySelector('select[name="childSchool"]');
+    if (schoolSelect) schoolSelect.value = "";
+
     currentStep = 0;
     currentErrors = [];
 
@@ -911,6 +1054,7 @@ document.querySelectorAll("input, select, textarea").forEach((field) => {
     }
   });
 });
+
 function openPrivacyModal() {
   privacyModal?.classList.remove("hidden");
   document.body.classList.add("modal-open");
@@ -966,5 +1110,40 @@ document.querySelectorAll("input, textarea, select").forEach((field) => {
   });
 });
 
+const openSupportModalBtn = document.getElementById("openSupportModal");
+const supportModal = document.getElementById("supportModal");
+const closeSupportModalBtns = document.querySelectorAll("[data-close-support-modal]");
+
+function openSupportModal() {
+  if (!supportModal) return;
+
+  supportModal.classList.add("is-open");
+  supportModal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closeSupportModal() {
+  if (!supportModal) return;
+
+  supportModal.classList.remove("is-open");
+  supportModal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+if (openSupportModalBtn && supportModal) {
+  openSupportModalBtn.addEventListener("click", openSupportModal);
+
+  closeSupportModalBtns.forEach((btn) => {
+    btn.addEventListener("click", closeSupportModal);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && supportModal.classList.contains("is-open")) {
+      closeSupportModal();
+    }
+  });
+}
+
+resetSchoolSelectIfEmpty();
 updateLanguage();
 
