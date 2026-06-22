@@ -454,7 +454,8 @@
 
                     <label>
                         Telefonnummer
-                        <input type="tel" name="phone" placeholder="Skriv telefonnummer" />
+                        <input type="tel" name="phone" inputmode="numeric" pattern="[0-9]*"
+                            placeholder="Skriv telefonnummer" />
                     </label>
 
                     <label>
@@ -511,6 +512,11 @@
                                 Foreningen søger normalt støtten på vegne af barnet.
                             </p>
 
+                            <a class="support-info-link"
+                                href="https://www.kk.dk/borger/udsatte-boern-og-unge/oekonomisk-stoette-til-fritidslivet"
+                                target="_blank" rel="noopener noreferrer">
+                                Læs mere om kontingentstøtte
+                            </a>
                             <button type="button" class="support-modal-btn" data-close-support-modal>
                                 Det er forstået
                             </button>
