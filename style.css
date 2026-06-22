@@ -1882,3 +1882,44 @@ select option:disabled {
     padding: 15px 48px 15px 15px;
   }
 }
+
+/* EKSTRA LILLE MOBIL OVERSKRIFT */
+@media (max-width: 720px) {
+  .landing-video-title {
+    font-size: clamp(1.25rem, 6.2vw, 2rem) !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.02em !important;
+
+    left: 18px !important;
+    right: 18px !important;
+    bottom: 170px !important;
+
+    max-width: calc(100vw - 36px) !important;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    text-wrap: balance;
+  }
+
+  .form-step h2,
+  .success-step h2 {
+    font-size: clamp(1.25rem, 5.6vw, 1.75rem) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  .success-video-title {
+    font-size: clamp(1.8rem, 8.5vw, 3rem) !important;
+    line-height: 0.95 !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .landing-video-title {
+    font-size: clamp(1.1rem, 5.8vw, 1.7rem) !important;
+  }
+
+  .form-step h2,
+  .success-step h2 {
+    font-size: clamp(1.15rem, 5.2vw, 1.55rem) !important;
+  }
+}
