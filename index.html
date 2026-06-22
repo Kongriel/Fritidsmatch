@@ -122,7 +122,21 @@
 
                     <label>
                         Skole
-                        <input type="text" name="childSchool" placeholder="Skriv skolens navn" required />
+                        <select name="childSchool" required autocomplete="off">
+                            <option value="" disabled selected>Vælg skole</option>
+                            <option value="Valby Skole">Valby Skole</option>
+                            <option value="Lykkebo Skole">Lykkebo Skole</option>
+                            <option value="Hanssted Skole">Hanssted Skole</option>
+                            <option value="Kirsebærhavens Skole">Kirsebærhavens Skole</option>
+                            <option value="Ellebjerg Skole">Ellebjerg Skole</option>
+                            <option value="Vigerslev Allés Skole">Vigerslev Allés Skole</option>
+                            <option value="Ålholm Skole">Ålholm Skole</option>
+                            <option value="Harrestrup Å Skole">Harrestrup Å Skole</option>
+                            <option value="Specialfritidsinstitutionen ved Kirsebærhavens Skole">
+                                Specialfritidsinstitutionen ved Kirsebærhavens Skole
+                            </option>
+                            <option value="Anden skole / ikke på listen">Anden skole / ikke på listen</option>
+                        </select>
                     </label>
 
                     <label>
@@ -222,8 +236,8 @@
                         </label>
 
                         <label class="interest-card">
-                            <input type="checkbox" name="interests" value="Tennis" />
-                            <span>🎾 Tennis</span>
+                            <input type="checkbox" name="interests" value="Badminton" />
+                            <span>🏸 Badminton</span>
                         </label>
 
                         <label class="interest-card">
@@ -232,8 +246,18 @@
                         </label>
 
                         <label class="interest-card">
-                            <input type="checkbox" name="interests" value="Kampsport" />
-                            <span>🥋 Kampsport</span>
+                            <input type="checkbox" name="interests" value="Judo" />
+                            <span>🥋 Judo</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Karate" />
+                            <span>🥋 Karate</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Krav Maga" />
+                            <span>🛡️ Krav Maga</span>
                         </label>
 
                         <label class="interest-card">
@@ -242,13 +266,63 @@
                         </label>
 
                         <label class="interest-card">
-                            <input type="checkbox" name="interests" value="Ridning" />
-                            <span>🐴 Ridning</span>
+                            <input type="checkbox" name="interests" value="Floorball" />
+                            <span>🏑 Floorball</span>
                         </label>
 
                         <label class="interest-card">
-                            <input type="checkbox" name="interests" value="Badminton" />
-                            <span>🏸 Badminton</span>
+                            <input type="checkbox" name="interests" value="Futsal" />
+                            <span>🥅 Futsal</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Volleyball" />
+                            <span>🏐 Volleyball</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Rulleskøjteløb" />
+                            <span>🛼 Rulleskøjteløb</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Amerikansk fodbold" />
+                            <span>🏈 Amerikansk fodbold</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Baseball" />
+                            <span>⚾ Baseball</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="E-sport" />
+                            <span>🎮 E-sport</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Spejder / FDF" />
+                            <span>🔥 Spejder / FDF</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Teater / drama" />
+                            <span>🎭 Teater / drama</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Krea / billedkunst" />
+                            <span>🎨 Krea / billedkunst</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Musik / sang" />
+                            <span>🎤 Musik / sang</span>
+                        </label>
+
+                        <label class="interest-card">
+                            <input type="checkbox" name="interests" value="Rollespil" />
+                            <span>🧙 Rollespil</span>
                         </label>
 
                         <label class="interest-card">
@@ -258,6 +332,12 @@
                     </div>
 
                     <p class="helper-text">Vælg mindst én interesse.</p>
+
+                    <label>
+                        Kender I allerede en forening, barnet gerne vil gå i?
+                        <textarea name="preferredAssociation" rows="3"
+                            placeholder="Skriv fx Valby IF, Fremad Valby, Valby Judoklub, B3B eller lignende"></textarea>
+                    </label>
 
                     <label>
                         Kender du nogen, der går til det?
@@ -326,6 +406,12 @@
                     </div>
 
                     <p class="helper-text">Vælg mindst én mulighed.</p>
+
+                    <label>
+                        Er der en bestemt dag eller tidspunkt, der passer bedst?
+                        <textarea name="preferredTimeNote" rows="4"
+                            placeholder="Skriv fx mandag efter kl. 16, onsdag mellem 17-19 eller weekender"></textarea>
+                    </label>
                 </section>
 
                 <section class="form-step">
@@ -390,6 +476,45 @@
                                 <span>Nej</span>
                             </label>
                         </div>
+
+                        <button type="button" class="support-info-link" id="openSupportModal">
+                            Hvad er kontingentstøtte?
+                        </button>
+                    </div>
+
+                    <div class="support-modal" id="supportModal" aria-hidden="true">
+                        <div class="support-modal-backdrop" data-close-support-modal></div>
+
+                        <div class="support-modal-card" role="dialog" aria-modal="true"
+                            aria-labelledby="supportModalTitle">
+                            <button type="button" class="support-modal-close" data-close-support-modal>
+                                ×
+                            </button>
+
+                            <div class="support-modal-icon">?</div>
+
+                            <h3 id="supportModalTitle">Hvad er kontingentstøtte?</h3>
+
+                            <p>
+                                Kontingentstøtte er økonomisk hjælp til børn og unge, så de kan gå til en
+                                fritidsaktivitet.
+                            </p>
+
+                            <p>
+                                Støtten kan bruges til kontingent og i nogle tilfælde også udstyr eller
+                                stævnedeltagelse.
+                            </p>
+
+                            <p>
+                                Ordningen er især for familier, hvor økonomien gør det svært at betale for en
+                                fritidsaktivitet.
+                                Foreningen søger normalt støtten på vegne af barnet.
+                            </p>
+
+                            <button type="button" class="support-modal-btn" data-close-support-modal>
+                                Det er forstået
+                            </button>
+                        </div>
                     </div>
                 </section>
 
@@ -448,7 +573,7 @@
                         <div class="success-video-card">
 
                             <h3 data-success-match-title>
-                                Vi finder det bedste match dig
+                                Vi finder det bedste match til jer
                             </h3>
                         </div>
 
