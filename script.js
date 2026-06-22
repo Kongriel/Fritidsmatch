@@ -160,6 +160,8 @@ const translations = {
     errorTimes: "Vælg hvornår det passer bedst.",
     errorParentName: "Forælderens/kontaktpersonens navn mangler.",
     errorContact: "Skriv enten telefonnummer eller e-mail.",
+    errorPhoneInvalid: "Telefonnummer må kun indeholde tal og skal være mellem 8 og 15 cifre.",
+    errorEmailInvalid: "Skriv en gyldig e-mailadresse.",
     errorSupport: "Vælg om personen har brug for kontingentstøtte.",
     errorConsent: "Du skal acceptere samtykke før du kan sende.",
 
@@ -331,6 +333,8 @@ const translations = {
     errorTimes: "Choose when it works best.",
     errorParentName: "The contact person’s name is missing.",
     errorContact: "Enter either a phone number or an email.",
+    errorPhoneInvalid: "Phone number must only contain numbers and be between 8 and 15 digits.",
+    errorEmailInvalid: "Enter a valid email address.",
     errorSupport: "Choose whether the person needs financial support.",
     errorConsent: "You need to accept the consent before submitting.",
   },
@@ -745,13 +749,25 @@ function getCheckedValues(name) {
   return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map((input) => input.value);
 }
 
-function hasValue(selector) {
+function getFieldValue(selector) {
   const field = document.querySelector(selector);
-  return field && String(field.value || "").trim().length > 0;
+  return field ? String(field.value || "").trim() : "";
+}
+
+function hasValue(selector) {
+  return getFieldValue(selector).length > 0;
 }
 
 function hasChecked(name) {
   return document.querySelectorAll(`input[name="${name}"]:checked`).length > 0;
+}
+
+function isValidPhoneNumber(value) {
+  return /^\d{8,15}$/.test(value);
+}
+
+function isValidEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
 }
 
 function hideFormErrors() {
@@ -874,11 +890,22 @@ function validateFullForm() {
     addError(errors, 4, "errorParentName", 'input[name="parentName"]');
   }
 
-  const hasPhone = hasValue('input[name="phone"]');
-  const hasEmail = hasValue('input[name="email"]');
+  const phoneValue = getFieldValue('input[name="phone"]');
+  const emailValue = getFieldValue('input[name="email"]');
+
+  const hasPhone = phoneValue.length > 0;
+  const hasEmail = emailValue.length > 0;
 
   if (!hasPhone && !hasEmail) {
     addError(errors, 4, "errorContact", 'input[name="phone"], input[name="email"]');
+  }
+
+  if (hasPhone && !isValidPhoneNumber(phoneValue)) {
+    addError(errors, 4, "errorPhoneInvalid", 'input[name="phone"]');
+  }
+
+  if (hasEmail && !isValidEmail(emailValue)) {
+    addError(errors, 4, "errorEmailInvalid", 'input[name="email"]');
   }
 
   if (!hasChecked("needsSupport")) {
@@ -922,8 +949,8 @@ function collectFormData() {
 
     parent_name: formData.get("parentName"),
     contact_role: formData.get("contactRole"),
-    phone: formData.get("phone"),
-    email: formData.get("email"),
+    phone: getFieldValue('input[name="phone"]'),
+    email: getFieldValue('input[name="email"]'),
     needs_support: formData.get("needsSupport"),
 
     comment: formData.get("comment"),
@@ -1009,6 +1036,10 @@ submitBtn.addEventListener("touchstart", () => {
   submitWasClicked = true;
 });
 
+submitBtn.addEventListener("click", () => {
+  submitWasClicked = true;
+});
+
 form.addEventListener("keydown", (event) => {
   if (event.key !== "Enter") return;
 
@@ -1042,7 +1073,9 @@ prevStepBtn.addEventListener("click", () => {
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  if (!submitWasClicked) {
+  const wasSubmittedByButton = event.submitter === submitBtn || submitWasClicked;
+
+  if (!wasSubmittedByButton) {
     submitWasClicked = false;
     return;
   }
@@ -1138,6 +1171,36 @@ document.querySelectorAll("input, select, textarea").forEach((field) => {
   });
 });
 
+function setupPhoneInputValidation() {
+  const phoneInput = document.querySelector('input[name="phone"]');
+
+  if (!phoneInput) return;
+
+  phoneInput.setAttribute("inputmode", "numeric");
+  phoneInput.setAttribute("autocomplete", "tel");
+  phoneInput.setAttribute("pattern", "[0-9]*");
+
+  phoneInput.addEventListener("input", () => {
+    phoneInput.value = phoneInput.value.replace(/\D/g, "");
+  });
+
+  phoneInput.addEventListener("paste", () => {
+    setTimeout(() => {
+      phoneInput.value = phoneInput.value.replace(/\D/g, "");
+    }, 0);
+  });
+}
+
+function setupEmailInputValidation() {
+  const emailInput = document.querySelector('input[name="email"]');
+
+  if (!emailInput) return;
+
+  emailInput.setAttribute("type", "email");
+  emailInput.setAttribute("autocomplete", "email");
+  emailInput.setAttribute("inputmode", "email");
+}
+
 function openPrivacyModal() {
   privacyModal?.classList.remove("hidden");
   document.body.classList.add("modal-open");
@@ -1228,4 +1291,6 @@ if (openSupportModalBtn && supportModal) {
 }
 
 resetSchoolSelectIfEmpty();
+setupPhoneInputValidation();
+setupEmailInputValidation();
 updateLanguage();
