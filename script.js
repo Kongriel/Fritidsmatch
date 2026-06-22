@@ -517,6 +517,17 @@ function scrollToTopOfForm() {
   formView?.scrollTo?.(scrollOptions);
 }
 
+function scrollFieldIntoView(field) {
+  if (!field) return;
+
+  setTimeout(() => {
+    field.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }, 80);
+}
+
 function updateStepView() {
   formSteps.forEach((step, index) => {
     step.classList.toggle("active-step", index === currentStep);
@@ -937,7 +948,7 @@ document.querySelectorAll("[data-lang-toggle]").forEach((button) => {
   });
 });
 
-nextStepBtn.addEventListener("click", () => {
+function goToNextStep() {
   hideFormErrors();
 
   if (currentStep < totalSteps - 1) {
@@ -948,6 +959,71 @@ nextStepBtn.addEventListener("click", () => {
       scrollToTopOfForm();
     });
   }
+}
+
+nextStepBtn.addEventListener("click", goToNextStep);
+
+function getFocusableFieldsInCurrentStep() {
+  const activeStep = formSteps[currentStep];
+  if (!activeStep) return [];
+
+  return Array.from(activeStep.querySelectorAll('input:not([type="hidden"]):not([disabled]), select:not([disabled]), textarea:not([disabled])')).filter((field) => {
+    const style = window.getComputedStyle(field);
+    return style.display !== "none" && style.visibility !== "hidden";
+  });
+}
+
+function focusNextFieldInCurrentStep(currentField) {
+  const fields = getFocusableFieldsInCurrentStep();
+  const currentIndex = fields.indexOf(currentField);
+
+  if (currentIndex === -1) return;
+
+  const nextField = fields[currentIndex + 1];
+
+  if (nextField) {
+    nextField.focus();
+    scrollFieldIntoView(nextField);
+    return;
+  }
+
+  const actionButton = currentStep < totalSteps - 1 ? nextStepBtn : submitBtn;
+
+  if (actionButton && !actionButton.classList.contains("hidden")) {
+    actionButton.focus();
+    scrollFieldIntoView(actionButton);
+  }
+}
+
+let submitWasClicked = false;
+
+submitBtn.addEventListener("pointerdown", () => {
+  submitWasClicked = true;
+});
+
+submitBtn.addEventListener("mousedown", () => {
+  submitWasClicked = true;
+});
+
+submitBtn.addEventListener("touchstart", () => {
+  submitWasClicked = true;
+});
+
+form.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter") return;
+
+  const activeElement = event.target;
+  const tagName = activeElement.tagName.toLowerCase();
+
+  if (tagName === "textarea") return;
+
+  if (tagName === "select") return;
+
+  if (tagName === "button") return;
+
+  event.preventDefault();
+
+  focusNextFieldInCurrentStep(activeElement);
 });
 
 prevStepBtn.addEventListener("click", () => {
@@ -965,6 +1041,13 @@ prevStepBtn.addEventListener("click", () => {
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
+
+  if (!submitWasClicked) {
+    submitWasClicked = false;
+    return;
+  }
+
+  submitWasClicked = false;
 
   hideFormErrors();
 
@@ -1146,4 +1229,3 @@ if (openSupportModalBtn && supportModal) {
 
 resetSchoolSelectIfEmpty();
 updateLanguage();
-
