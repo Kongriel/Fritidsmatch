@@ -119,7 +119,7 @@ const translations = {
     no: "Nej",
     contactHelper: "Skriv gerne enten telefonnummer eller e-mail.",
 
-    supportInfoLink: "Hvad er kontingentstøtte?",
+    supportInfoLink: "Læs mere om kontingentstøtte",
     supportModalTitle: "Hvad er kontingentstøtte?",
     supportModalTextOne: "Kontingentstøtte er økonomisk hjælp til børn og unge, så de kan gå til en fritidsaktivitet.",
     supportModalTextTwo: "Støtten kan bruges til kontingent og i nogle tilfælde også udstyr eller stævnedeltagelse.",
@@ -292,7 +292,7 @@ const translations = {
     no: "No",
     contactHelper: "Please enter either a phone number or an email.",
 
-    supportInfoLink: "What is financial membership support?",
+    supportInfoLink: "Read more about financial membership support",
     supportModalTitle: "What is financial membership support?",
     supportModalTextOne: "Financial membership support helps children and young people take part in a leisure activity.",
     supportModalTextTwo: "The support can be used for membership fees and, in some cases, equipment or event participation.",
@@ -586,6 +586,7 @@ function updateLanguage() {
   setText("[data-landing-support-text]", t("landingSupportText"));
   setText("[data-landing-badge-time]", t("landingBadgeTime"));
   setText("[data-landing-badge-contact]", t("landingBadgeContact"));
+  setText("#supportInfoLink", t("supportInfoLink"));
 
   setText("[data-privacy-title]", t("privacyTitle"));
   setText("[data-privacy-intro]", t("privacyIntro"));
@@ -1302,5 +1303,3 @@ resetSchoolSelectIfEmpty();
 setupPhoneInputValidation();
 setupEmailInputValidation();
 updateLanguage();
-
-
