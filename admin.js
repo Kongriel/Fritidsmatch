@@ -26,6 +26,58 @@ const statSupport = document.getElementById("statSupport");
 
 const opportunitiesList = document.getElementById("opportunitiesList");
 
+const VALBY_ACTIVITY_ASSOCIATIONS_FALLBACK = {
+  Fodbold: ["Fremad Valby", "Valby Boldklub", "Valby United", "Vigerslev Boldklub", "BK Frem", "BK Hellas"],
+
+  Gymnastik: ["Valby IF Gymnastik", "Fremad Valby", "Øbro Gymnastik"],
+
+  Håndbold: ["Fremad Valby", "Ajax København"],
+
+  Basketball: ["B3B Basketball", "Valby Vespas"],
+
+  Svømning: ["Fremad Valby", "HSK i Valby Vandkulturhus", "Valby Vandkulturhus"],
+
+  Badminton: ["Hi Badminton", "Sct. Jørgen"],
+
+  Dans: ["Valby IF Gymnastik", "Børnekulturstedet Valby"],
+
+  Judo: ["Valby Judoklub"],
+
+  Karate: ["Seidokan Japan Center", "Bosatsu Karate", "Musashi Shotokan Karate-Do"],
+
+  "Krav Maga": ["Krav Maga Valby"],
+
+  Atletik: ["Lokale atletik-/løbetilbud i Valby"],
+
+  Floorball: ["Copenhagen Floorball Club"],
+
+  Futsal: ["Københavns Futsal", "Arctos"],
+
+  Volleyball: ["Pan Volleyball"],
+
+  Rulleskøjteløb: ["Vesterbro Rulleskøjteklub"],
+
+  "Amerikansk fodbold": ["Copenhagen Raptors"],
+
+  Baseball: ["Copenhagen Baseball Club"],
+
+  Hockey: ["Københavns Hockeyklub", "Pan Hockey"],
+
+  "E-sport": ["Valby United"],
+
+  "Spejder / FDF": ["FDF K23 Valby", "FDF K17 Valby"],
+
+  "Teater / drama": ["Børnekulturstedet Valby", "FDF K17 Valby"],
+
+  "Krea / billedkunst": ["Børnekulturstedet Valby"],
+
+  "Musik / sang": ["Copenhagen Music", "FDF K17 Valby", "Børnekulturstedet Valby"],
+
+  Rollespil: ["Børnekulturstedet Valby"],
+
+  Andet: [],
+};
+
 let charts = {};
 let chartsAreVisible = false;
 let pendingChartConfigs = {};
@@ -70,12 +122,106 @@ function formatArray(value) {
 function escapeHtml(value) {
   if (value === null || value === undefined) return "";
 
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+  return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
+}
+
+function normalizeMatchedAssociations(matches) {
+  if (!matches) return [];
+
+  if (typeof matches === "string") {
+    try {
+      return JSON.parse(matches);
+    } catch {
+      return [];
+    }
+  }
+
+  return Array.isArray(matches) ? matches : [];
+}
+
+function getFallbackMatchedAssociations(interests) {
+  const selectedInterests = Array.isArray(interests) ? interests : [];
+
+  return selectedInterests.map((activity) => ({
+    activity,
+    associations: VALBY_ACTIVITY_ASSOCIATIONS_FALLBACK[activity] || [],
+  }));
+}
+
+function getSubmissionMatchedAssociations(item) {
+  const savedMatches = normalizeMatchedAssociations(item.matched_associations);
+
+  if (savedMatches.length) {
+    return savedMatches;
+  }
+
+  return getFallbackMatchedAssociations(item.interests);
+}
+
+function getAssociationsForActivity(item, activity) {
+  const matches = getSubmissionMatchedAssociations(item);
+  const match = matches.find((entry) => entry.activity === activity);
+
+  if (!match || !Array.isArray(match.associations)) {
+    return [];
+  }
+
+  return match.associations.filter(Boolean);
+}
+
+function formatMatchedAssociations(matches) {
+  const normalizedMatches = normalizeMatchedAssociations(matches);
+
+  if (!normalizedMatches.length) {
+    return `<span class="small-muted">Ingen klubmatch</span>`;
+  }
+
+  return normalizedMatches
+    .map((match) => {
+      const activity = escapeHtml(match.activity || "Ukendt aktivitet");
+      const associations = Array.isArray(match.associations) ? match.associations.filter(Boolean) : [];
+
+      if (!associations.length) {
+        return `
+          <details class="club-match-dropdown">
+            <summary>
+              <span>${activity}</span>
+              <small>Ingen klubber</small>
+            </summary>
+            <div class="association-empty">
+              Ingen kendte Valby-foreninger endnu
+            </div>
+          </details>
+        `;
+      }
+
+      return `
+        <details class="club-match-dropdown">
+          <summary>
+            <span>${activity}</span>
+            <small>${associations.length} klub${associations.length === 1 ? "" : "ber"}</small>
+          </summary>
+
+          <div class="association-pill-row">
+            ${associations.map((name) => `<span class="association-pill">${escapeHtml(name)}</span>`).join("")}
+          </div>
+        </details>
+      `;
+    })
+    .join("");
+}
+
+function formatMatchedAssociationsForText(matches) {
+  const normalizedMatches = normalizeMatchedAssociations(matches);
+
+  return normalizedMatches
+    .map((match) => {
+      const activity = match.activity || "Ukendt aktivitet";
+      const associations = Array.isArray(match.associations) ? match.associations.join(", ") : "";
+
+      return `${activity}: ${associations}`;
+    })
+    .join(" | ");
 }
 
 function getTopEntries(counts, limit = 5) {
@@ -252,7 +398,7 @@ function renderInsights(data) {
     "ageChart",
     ageTop.map(([label]) => label),
     ageTop.map(([, value]) => value),
-    "Antal"
+    "Antal",
   );
 
   const activityTop = getTopEntries(activityCounts, 8);
@@ -260,7 +406,7 @@ function renderInsights(data) {
     "activityChart",
     activityTop.map(([label]) => label),
     activityTop.map(([, value]) => value),
-    "Antal"
+    "Antal",
   );
 
   const schoolTop = getTopEntries(schoolCounts, 8);
@@ -268,7 +414,7 @@ function renderInsights(data) {
     "schoolChart",
     schoolTop.map(([label]) => label),
     schoolTop.map(([, value]) => value),
-    "Antal"
+    "Antal",
   );
 
   const schoolSupportTop = getTopEntries(schoolSupportCounts, 8);
@@ -276,7 +422,7 @@ function renderInsights(data) {
     "schoolSupportChart",
     schoolSupportTop.map(([label]) => label),
     schoolSupportTop.map(([, value]) => value),
-    "Antal med kontingentstøtte"
+    "Antal med kontingentstøtte",
   );
 
   const timeTop = getTopEntries(timeCounts, 8);
@@ -284,7 +430,7 @@ function renderInsights(data) {
     "timeChart",
     timeTop.map(([label]) => label),
     timeTop.map(([, value]) => value),
-    "Antal"
+    "Antal",
   );
 
   const supportTop = getTopEntries(supportCounts, 4);
@@ -292,7 +438,7 @@ function renderInsights(data) {
     "supportChart",
     supportTop.map(([label]) => label),
     supportTop.map(([, value]) => value),
-    "Antal"
+    "Antal",
   );
 
   const roleTop = getTopEntries(roleCounts, 6);
@@ -300,7 +446,7 @@ function renderInsights(data) {
     "roleChart",
     roleTop.map(([label]) => label),
     roleTop.map(([, value]) => value),
-    "Antal"
+    "Antal",
   );
 
   renderOpportunities(data);
@@ -329,6 +475,7 @@ function renderOpportunities(data) {
           count: 0,
           supportCount: 0,
           times: {},
+          associations: {},
         };
       }
 
@@ -342,6 +489,10 @@ function renderOpportunities(data) {
 
       preferredTimes.forEach((time) => {
         groups[key].times[time] = (groups[key].times[time] || 0) + 1;
+      });
+
+      getAssociationsForActivity(item, activity).forEach((association) => {
+        groups[key].associations[association] = (groups[key].associations[association] || 0) + 1;
       });
     });
   });
@@ -364,10 +515,9 @@ function renderOpportunities(data) {
   opportunitiesList.innerHTML = opportunities
     .map((group) => {
       const topTime = getTopEntries(group.times, 1)[0];
-      const supportText =
-        group.supportCount > 0
-          ? `${group.supportCount} med behov for kontingentstøtte`
-          : "Ingen har angivet kontingentstøtte";
+      const topAssociations = getTopEntries(group.associations, 5).map(([name]) => name);
+
+      const supportText = group.supportCount > 0 ? `${group.supportCount} med behov for kontingentstøtte` : "Ingen har angivet kontingentstøtte";
 
       return `
         <div class="opportunity-item">
@@ -375,6 +525,7 @@ function renderOpportunities(data) {
           <span>${group.count} personer matcher denne gruppe</span>
           <span>Bedste tidspunkt: ${escapeHtml(topTime ? topTime[0] : "Ikke nok data")}</span>
           <span>${escapeHtml(supportText)}</span>
+          ${topAssociations.length ? `<span>Mulige klubmatch: ${escapeHtml(topAssociations.join(", "))}</span>` : ""}
         </div>
       `;
     })
@@ -402,6 +553,7 @@ function renderTable(data) {
   submissionsTable.innerHTML = data
     .map((item) => {
       const contactParts = [];
+      const matchedAssociations = getSubmissionMatchedAssociations(item);
 
       if (item.phone) contactParts.push(escapeHtml(item.phone));
       if (item.email) contactParts.push(escapeHtml(item.email));
@@ -420,10 +572,18 @@ function renderTable(data) {
 
           <td>${escapeHtml(item.child_age)}</td>
 
+          <td class="club-match-cell">
+            ${formatMatchedAssociations(matchedAssociations)}
+          </td>
+
           <td>
-            ${escapeHtml(formatArray(item.interests))}
-            <span class="small-muted">Niveau: ${escapeHtml(item.level || "")}</span>
             <span class="small-muted">Tid: ${escapeHtml(formatArray(item.preferred_times))}</span>
+
+            ${item.preferred_time_note ? `<span class="small-muted">Specifikt tidspunkt: ${escapeHtml(item.preferred_time_note)}</span>` : ""}
+
+            ${item.known_participant ? `<span class="small-muted">Kender nogen: ${escapeHtml(item.known_participant)}</span>` : ""}
+
+            ${item.preferred_association ? `<span class="small-muted">Ønsket forening: ${escapeHtml(item.preferred_association)}</span>` : ""}
           </td>
 
           <td>
@@ -451,30 +611,9 @@ function filterSubmissions() {
   }
 
   const result = submissions.filter((item) => {
-    const searchableText = [
-      item.child_name,
-      item.child_address,
-      item.child_school,
-      item.child_age,
-      item.child_gender,
-      formatArray(item.child_languages),
-      item.other_language,
-      formatArray(item.interests),
-      item.known_participant,
-      item.level,
-      formatArray(item.preferred_times),
-      item.parent_name,
-      item.contact_role,
-      item.phone,
-      item.email,
-      item.needs_support,
-      item.comment,
-      item.language,
-      item.created_at,
-    ]
-      .filter(Boolean)
-      .join(" ")
-      .toLowerCase();
+    const matchedAssociations = getSubmissionMatchedAssociations(item);
+
+    const searchableText = [item.child_name, item.child_address, item.child_school, item.child_age, item.child_gender, formatArray(item.child_languages), item.other_language, formatArray(item.interests), formatMatchedAssociationsForText(matchedAssociations), item.preferred_association, item.known_participant, item.level, formatArray(item.preferred_times), item.preferred_time_note, item.parent_name, item.contact_role, item.phone, item.email, item.needs_support, item.comment, item.language, item.created_at].filter(Boolean).join(" ").toLowerCase();
 
     return searchableText.includes(query);
   });
@@ -489,10 +628,7 @@ async function loadSubmissions() {
     </tr>
   `;
 
-  const { data, error } = await supabaseClient
-    .from("fritidsmatch_submissions")
-    .select("*")
-    .order("created_at", { ascending: false });
+  const { data, error } = await supabaseClient.from("fritidsmatch_submissions").select("*").order("created_at", { ascending: false });
 
   if (error) {
     console.error("Kunne ikke hente tilmeldinger:", error);
@@ -528,56 +664,15 @@ function downloadCsv() {
 
   if (!rows.length) return;
 
-  const headers = [
-    "Dato",
-    "Navn",
-    "Adresse",
-    "Skole",
-    "Alder",
-    "Køn",
-    "Sprog",
-    "Andet sprog",
-    "Interesser",
-    "Kender nogen",
-    "Niveau",
-    "Passer bedst",
-    "Kontaktperson",
-    "Tilknytning",
-    "Telefon",
-    "Email",
-    "Kontingentstøtte",
-    "Kommentar",
-    "Samtykke",
-    "Sprog på formular",
-  ];
+  const headers = ["Dato", "Navn", "Adresse", "Skole", "Alder", "Køn", "Sprog", "Andet sprog", "Interesser", "Klubmatch", "Ønsket forening", "Kender nogen", "Niveau", "Passer bedst", "Specifikt tidspunkt", "Kontaktperson", "Tilknytning", "Telefon", "Email", "Kontingentstøtte", "Kommentar", "Samtykke", "Sprog på formular"];
 
-  const csvRows = rows.map((item) => [
-    formatDate(item.created_at),
-    item.child_name,
-    item.child_address,
-    item.child_school,
-    item.child_age,
-    item.child_gender,
-    formatArray(item.child_languages),
-    item.other_language,
-    formatArray(item.interests),
-    item.known_participant,
-    item.level,
-    formatArray(item.preferred_times),
-    item.parent_name,
-    item.contact_role,
-    item.phone,
-    item.email,
-    item.needs_support,
-    item.comment,
-    item.consent ? "Ja" : "Nej",
-    item.language,
-  ]);
+  const csvRows = rows.map((item) => {
+    const matchedAssociations = getSubmissionMatchedAssociations(item);
 
-  const csvContent = [
-    headers.map(convertToCsvValue).join(";"),
-    ...csvRows.map((row) => row.map(convertToCsvValue).join(";")),
-  ].join("\n");
+    return [formatDate(item.created_at), item.child_name, item.child_address, item.child_school, item.child_age, item.child_gender, formatArray(item.child_languages), item.other_language, formatArray(item.interests), formatMatchedAssociationsForText(matchedAssociations), item.preferred_association, item.known_participant, item.level, formatArray(item.preferred_times), item.preferred_time_note, item.parent_name, item.contact_role, item.phone, item.email, item.needs_support, item.comment, item.consent ? "Ja" : "Nej", item.language];
+  });
+
+  const csvContent = [headers.map(convertToCsvValue).join(";"), ...csvRows.map((row) => row.map(convertToCsvValue).join(";"))].join("\n");
 
   const blob = new Blob(["\uFEFF" + csvContent], {
     type: "text/csv;charset=utf-8;",
@@ -602,6 +697,182 @@ async function checkSession() {
   } else {
     showLogin();
   }
+}
+
+function injectAdminAssociationStyles() {
+  if (document.getElementById("associationAdminStyles")) return;
+
+  const style = document.createElement("style");
+  style.id = "associationAdminStyles";
+  style.textContent = `
+    #submissionsTable {
+      width: 100% !important;
+      min-width: 0 !important;
+      table-layout: fixed;
+    }
+
+    #submissionsTable th,
+    #submissionsTable td {
+      vertical-align: top;
+      white-space: normal;
+      word-break: normal;
+      overflow-wrap: anywhere;
+    }
+
+    #submissionsTable th {
+      font-size: 0.8rem;
+      line-height: 1.1;
+    }
+
+    #submissionsTable td {
+      font-size: 0.92rem;
+      line-height: 1.25;
+    }
+
+    #submissionsTable th:nth-child(1),
+    #submissionsTable td:nth-child(1) {
+      width: 15%;
+    }
+
+    #submissionsTable th:nth-child(2),
+    #submissionsTable td:nth-child(2) {
+      width: 15%;
+    }
+
+    #submissionsTable th:nth-child(3),
+    #submissionsTable td:nth-child(3) {
+      width: 7%;
+    }
+
+    #submissionsTable th:nth-child(4),
+    #submissionsTable td:nth-child(4) {
+      width: 10%;
+    }
+
+    #submissionsTable th:nth-child(5),
+    #submissionsTable td:nth-child(5) {
+      width: 17%;
+    }
+
+    #submissionsTable th:nth-child(6),
+    #submissionsTable td:nth-child(6) {
+      width: 15%;
+    }
+
+    #submissionsTable th:nth-child(7),
+    #submissionsTable td:nth-child(7) {
+      width: 15%;
+    }
+
+    #submissionsTable th:nth-child(8),
+    #submissionsTable td:nth-child(8) {
+      width: 5%;
+    }
+
+    .club-match-cell {
+      vertical-align: top;
+    }
+
+    .club-match-dropdown {
+      width: 180px;
+      max-width: 100%;
+      margin-bottom: 8px;
+      border-radius: 999px;
+      background: rgba(0, 13, 46, 0.04);
+      border: 1px solid rgba(0, 13, 46, 0.1);
+      overflow: hidden;
+    }
+
+    .club-match-dropdown:last-child {
+      margin-bottom: 0;
+    }
+
+    .club-match-dropdown summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-weight: 900;
+      color: #06245c;
+      user-select: none;
+      font-size: 0.86rem;
+    }
+
+    .club-match-dropdown summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .club-match-dropdown summary::after {
+      content: "▾";
+      font-size: 0.72rem;
+      transition: transform 0.18s ease;
+      opacity: 0.7;
+      flex-shrink: 0;
+    }
+
+    .club-match-dropdown[open] {
+      border-radius: 16px;
+    }
+
+    .club-match-dropdown[open] summary::after {
+      transform: rotate(180deg);
+    }
+
+    .club-match-dropdown summary span {
+      min-width: 0;
+      max-width: 105px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .club-match-dropdown summary small {
+      margin-left: auto;
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: rgba(6, 36, 92, 0.62);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .association-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0 10px 10px;
+    }
+
+    .association-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 9px;
+      border-radius: 999px;
+      
+      color: #001535;
+      font-size: 0.72rem;
+      font-weight: 850;
+      line-height: 1.1;
+      max-width: 100%;
+    }
+
+    .association-empty {
+      padding: 0 12px 12px;
+      font-size: 0.78rem;
+      opacity: 0.65;
+    }
+
+    .small-muted {
+      display: block;
+      margin-top: 4px;
+      line-height: 1.35;
+      font-size: 0.84rem;
+    }
+  `;
+
+  document.head.appendChild(style);
 }
 
 loginForm.addEventListener("submit", async (event) => {
@@ -660,10 +931,11 @@ if (analyticsSection) {
     },
     {
       threshold: 0.2,
-    }
+    },
   );
 
   analyticsObserver.observe(analyticsSection);
 }
 
+injectAdminAssociationStyles();
 checkSession();
