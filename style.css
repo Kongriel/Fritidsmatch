@@ -714,6 +714,13 @@ textarea {
   gap: 12px;
 }
 
+.develop-credit {
+  margin-top: 15px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
 .interest-grid {
   padding-bottom: 25px;
 }
@@ -1875,4 +1882,3 @@ select option:disabled {
     padding: 15px 48px 15px 15px;
   }
 }
-
