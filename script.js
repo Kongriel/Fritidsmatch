@@ -366,6 +366,7 @@ const progressFill = document.getElementById("progressFill");
 
 const formErrorBox = document.getElementById("formErrorBox");
 const formErrorList = document.getElementById("formErrorList");
+const developCredit = document.getElementById("developCredit");
 
 const VALBY_ACTIVITY_ASSOCIATIONS = {
   Fodbold: ["Fremad Valby", "Valby Boldklub", "Valby United", "Vigerslev Boldklub", "BK Frem", "BK Hellas"],
@@ -548,6 +549,10 @@ function updateStepView() {
 
   nextStepBtn.classList.toggle("hidden", isLastStep);
   submitBtn.classList.toggle("hidden", !isLastStep);
+
+  if (developCredit) {
+    developCredit.classList.toggle("hidden", !isLastStep);
+  }
 }
 
 function updateSupportModalLanguage() {
@@ -1294,3 +1299,4 @@ resetSchoolSelectIfEmpty();
 setupPhoneInputValidation();
 setupEmailInputValidation();
 updateLanguage();
+
