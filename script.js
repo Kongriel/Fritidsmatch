@@ -138,6 +138,7 @@ const translations = {
     sending: "Sender...",
     submitError: "Der skete en fejl. Prøv igen om lidt.",
     dataNote: "🔒 Vi passer godt på dine data",
+    developCredit: "Udviklet af Anton Krause Riel",
 
     done: "Færdig",
 
@@ -311,6 +312,7 @@ const translations = {
     sending: "Sending...",
     submitError: "Something went wrong. Please try again.",
     dataNote: "🔒 We take good care of your data",
+    developCredit: "Developed by Anton Krause Riel",
 
     done: "Done",
 
@@ -738,6 +740,7 @@ function updateLanguage() {
   setText("#prevStepBtn", t("previous"));
   setText("#submitBtn", t("submit"));
   setText(".data-note", t("dataNote"));
+  setText("#developCredit", t("developCredit"));
 
   setText("[data-success-title-top]", t("successTitleTop"));
   setText("[data-success-title-middle]", t("successTitleMiddle"));
@@ -1299,4 +1302,5 @@ resetSchoolSelectIfEmpty();
 setupPhoneInputValidation();
 setupEmailInputValidation();
 updateLanguage();
+
 
