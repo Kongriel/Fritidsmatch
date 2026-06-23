@@ -23,8 +23,8 @@ const translations = {
     landingBadgeTime: "Tager 2-3 minutter",
     landingBadgeContact: "Vi kontakter jer",
 
-    preferredTimeNote: "Skriv gerne specifik dag og tidspunkt",
-    preferredTimeNotePlaceholder: "Fx tirsdag efter kl. 16 eller torsdag mellem 15-17",
+    preferredTimeNote: "Er der dage eller tidspunkter, hvor du ikke kan gå til en fritidsaktivitet?",
+    preferredTimeNotePlaceholder: "Skriv de dage eller tidspunkter, der ikke passer — fx mandage efter kl. 16",
 
     privacyTitle: "Sådan behandler vi dine oplysninger",
     privacyIntro: "Vi bruger kun oplysningerne til at hjælpe med at finde et relevant fritidstilbud.",
@@ -191,9 +191,8 @@ const translations = {
 
     landingTitle: "Find a leisure activity",
     landingIntro: "Help a person get involved in a leisure activity",
-    preferredTimeNote: "Please write a specific day and time",
-    preferredTimeNotePlaceholder: "E.g. Tuesday after 4 PM or Thursday between 3-5 PM",
-
+    preferredTimeNote: "Are there any days or times when you cannot attend a leisure activity?",
+    preferredTimeNotePlaceholder: "Write the days or times that do not work — for example, Mondays after 4 PM, all day Wednesdays or weekends",
     landingMainText: "Help a person get involved in a leisure activity",
     landingSupportText: "Fill out the form, takes 2 minutes and we will help you find a good match.",
     landingBadgeTime: "Takes 2-3 minutes",
@@ -371,31 +370,31 @@ const formErrorList = document.getElementById("formErrorList");
 const developCredit = document.getElementById("developCredit");
 
 const VALBY_ACTIVITY_ASSOCIATIONS = {
-  Fodbold: ["Fremad Valby", "Valby Boldklub", "Valby United", "Vigerslev Boldklub", "BK Frem", "BK Hellas"],
-  Gymnastik: ["Valby IF Gymnastik", "Fremad Valby", "Øbro Gymnastik"],
+  Fodbold: ["Fremad Valby", "Valby Boldklub", "København Syd-Vest Boldklub (KSV)", "Valby United", "Vigerslev Boldklub", "BK Frem", "BK Hellas, Boldklubben Pioneren"],
+  Gymnastik: ["Valby IF Gymnastik", "Fremad Valby"],
   Håndbold: ["Fremad Valby", "Ajax København"],
   Basketball: ["B3B Basketball", "Valby Vespas"],
   Svømning: ["Fremad Valby", "HSK i Valby Vandkulturhus", "Valby Vandkulturhus"],
   Badminton: ["Hi Badminton", "Sct. Jørgen"],
-  Tennis: ["Lokale tennistilbud i Valby"],
-  Dans: ["Valby IF Gymnastik", "Børnekulturstedet Valby"],
+
+  Dans: ["Valby IF Gymnastik", "Børnekulturstedet Valby", "Shine Dance Company"],
   Judo: ["Valby Judoklub"],
   Karate: ["Seidokan Japan Center", "Bosatsu Karate", "Musashi Shotokan Karate-Do"],
   "Krav Maga": ["Krav Maga Valby"],
-  Atletik: ["Lokale atletik-/løbetilbud i Valby"],
+
   Floorball: ["Copenhagen Floorball Club"],
   Futsal: ["Københavns Futsal", "Arctos"],
-  Volleyball: ["Pan Volleyball"],
-  Rulleskøjteløb: ["Vesterbro Rulleskøjteklub"],
+  Volleyball: ["Diramo Volley"],
+
   "Amerikansk fodbold": ["Copenhagen Raptors"],
   Baseball: ["Copenhagen Baseball Club"],
-  Hockey: ["Københavns Hockeyklub", "Pan Hockey"],
+  Hockey: ["Københavns Hockeyklub"],
   Petanque: ["Fremad Valby Petanque"],
   "E-sport": ["Valby United"],
   "Spejder / FDF": ["FDF K23 Valby", "FDF K17 Valby"],
-  "Teater / drama": ["Børnekulturstedet Valby", "FDF K17 Valby"],
-  "Krea / billedkunst": ["Børnekulturstedet Valby"],
-  "Musik / sang": ["Copenhagen Music", "FDF K17 Valby", "Børnekulturstedet Valby"],
+  "Teater / drama": ["Børnekulturstedet Valby", "Kultur og Fritid V"],
+
+  "Musik / sang": ["Copenhagen Music", "Børnekulturstedet Valby"],
   Rollespil: ["Børnekulturstedet Valby"],
   Andet: [],
 };
