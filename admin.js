@@ -33,7 +33,11 @@ const VALBY_ACTIVITY_ASSOCIATIONS_FALLBACK = {
 
   Håndbold: ["Fremad Valby", "Ajax København"],
 
+  Atletik: ["Dansk Atletik"],
+
   Basketball: ["B3B Basketball", "Valby Vespas"],
+
+  Capoeira: ["Capoeira Malungos Valby"],
 
   Svømning: ["Fremad Valby", "HSK i Valby Vandkulturhus", "Valby Vandkulturhus"],
 
@@ -933,4 +937,3 @@ if (analyticsSection) {
 
 injectAdminAssociationStyles();
 checkSession();
-
