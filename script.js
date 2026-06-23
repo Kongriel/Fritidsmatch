@@ -385,6 +385,8 @@ const VALBY_ACTIVITY_ASSOCIATIONS = {
   Floorball: ["Copenhagen Floorball Club"],
   Futsal: ["Københavns Futsal", "Arctos"],
   Volleyball: ["Diramo Volley"],
+  Capoeira: ["Capoeira Malungos Valby"],
+  Atletik: ["Dansk Atletik"],
 
   "Amerikansk fodbold": ["Copenhagen Raptors"],
   Baseball: ["Copenhagen Baseball Club"],
@@ -1302,3 +1304,4 @@ resetSchoolSelectIfEmpty();
 setupPhoneInputValidation();
 setupEmailInputValidation();
 updateLanguage();
+
