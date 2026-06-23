@@ -27,7 +27,7 @@ const statSupport = document.getElementById("statSupport");
 const opportunitiesList = document.getElementById("opportunitiesList");
 
 const VALBY_ACTIVITY_ASSOCIATIONS_FALLBACK = {
-  Fodbold: ["Fremad Valby", "Valby Boldklub", "Valby United", "Vigerslev Boldklub", "BK Frem", "BK Hellas"],
+  Fodbold: ["Fremad Valby", "Valby Boldklub", "København Syd-Vest Boldklub (KSV)", "Valby United", "Vigerslev Boldklub", "BK Frem", "BK Hellas, Boldklubben Pioneren"],
 
   Gymnastik: ["Valby IF Gymnastik", "Fremad Valby", "Øbro Gymnastik"],
 
@@ -39,7 +39,7 @@ const VALBY_ACTIVITY_ASSOCIATIONS_FALLBACK = {
 
   Badminton: ["Hi Badminton", "Sct. Jørgen"],
 
-  Dans: ["Valby IF Gymnastik", "Børnekulturstedet Valby"],
+  Dans: ["Valby IF Gymnastik", "Børnekulturstedet Valby", "Shine Dance Company"],
 
   Judo: ["Valby Judoklub"],
 
@@ -47,31 +47,25 @@ const VALBY_ACTIVITY_ASSOCIATIONS_FALLBACK = {
 
   "Krav Maga": ["Krav Maga Valby"],
 
-  Atletik: ["Lokale atletik-/løbetilbud i Valby"],
-
   Floorball: ["Copenhagen Floorball Club"],
 
   Futsal: ["Københavns Futsal", "Arctos"],
 
-  Volleyball: ["Pan Volleyball"],
-
-  Rulleskøjteløb: ["Vesterbro Rulleskøjteklub"],
+  Volleyball: ["Diramo Volley"],
 
   "Amerikansk fodbold": ["Copenhagen Raptors"],
 
   Baseball: ["Copenhagen Baseball Club"],
 
-  Hockey: ["Københavns Hockeyklub", "Pan Hockey"],
+  Hockey: ["Københavns Hockeyklub"],
 
   "E-sport": ["Valby United"],
 
   "Spejder / FDF": ["FDF K23 Valby", "FDF K17 Valby"],
 
-  "Teater / drama": ["Børnekulturstedet Valby", "FDF K17 Valby"],
+  "Teater / drama": ["Børnekulturstedet Valby", "Kultur og Fritid V"],
 
-  "Krea / billedkunst": ["Børnekulturstedet Valby"],
-
-  "Musik / sang": ["Copenhagen Music", "FDF K17 Valby", "Børnekulturstedet Valby"],
+  "Musik / sang": ["Copenhagen Music", "Børnekulturstedet Valby"],
 
   Rollespil: ["Børnekulturstedet Valby"],
 
@@ -939,3 +933,4 @@ if (analyticsSection) {
 
 injectAdminAssociationStyles();
 checkSession();
+
