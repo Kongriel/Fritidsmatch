@@ -374,6 +374,7 @@ const VALBY_ACTIVITY_ASSOCIATIONS = {
   Gymnastik: ["Valby IF Gymnastik", "Fremad Valby"],
   Håndbold: ["Fremad Valby", "Ajax København"],
   Basketball: ["B3B Basketball", "Valby Vespas"],
+  Boksning: ["Valby I.K"],
   Svømning: ["Fremad Valby", "HSK i Valby Vandkulturhus", "Valby Vandkulturhus"],
   Badminton: ["Hi Badminton", "Sct. Jørgen"],
 
